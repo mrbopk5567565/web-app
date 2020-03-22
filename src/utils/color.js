@@ -1,0 +1,1 @@
+export const colorLogo = '#e21a22';
