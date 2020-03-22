@@ -17,11 +17,13 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <InternPrivateRoute exact path="/intern-home/discuss" component={ InternHome }/>
+            <InternPrivateRoute exact path="/intern-home/" component={ InternHome }/>
+            <MentorPrivateRoute exact path="/mentor-home/"/>
             <Route exact path="/" component={ Home }/>
             <Route exact path="/login" component={ Login }/>
             <Route exact path="/register" component={ Register }/>
-            <Route path="/" component={ Menu }/>
+            <Route path="/intern-home" component={ Menu }/>
+            <Route path="/mentor-home" component={ Menu }/>
             <Route component={ PageNotFound }/>
           </Switch>
         </BrowserRouter>

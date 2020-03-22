@@ -1,4 +1,4 @@
-import { put, takeLatest, call, cps } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import * as userConstants from '../constants/userConstants';
 import { UserApiLogin, UserApiLoadUserDetail, UserApiUpdateUserDetail } from '../../api/userApi';
 
@@ -10,7 +10,9 @@ function* onLogin(action) {
     } else {
       yield put({ type: userConstants.USER_LOGIN_SUCCESS, payload: user })
       yield put({ type: userConstants.USER_LOGIN_FAILURE, messages: '' })
-      user.user.role === 'intern' ? action.props.history.push("/intern-home/discuss") : console.log('eaeasd');
+      user.user.role === 'intern' ? 
+        action.props.history.push("/intern-home/discuss") : 
+        action.props.history.push("/mentor-home/discuss");
     }
   } catch (error) {
     yield put({ type: userConstants.USER_LOGIN_FAILURE, error })
@@ -20,7 +22,7 @@ function* onLogin(action) {
 function* onLoadUserDetails() {
   try {
     const user_detail = yield call(UserApiLoadUserDetail)
-    // console.log('user_detail', user_detail)
+    console.log('user_detail', user_detail)
     yield put({ type: userConstants.LOAD_USER_DETAIL_SUCCESS, payload: user_detail.data })
   } catch (error) {
     console.log(error)

@@ -9,11 +9,14 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import HomeIcon from '@material-ui/icons/Home';
 import useStyles from './styles';
 import Vinova_Logo from '../../images/Vinova_Logo.png';
+
 import Profile from '../../components/Profile';
 import Discuss from '../../components/Discuss';
+import Mentor from '../../components/Mentor';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../utils/common';
@@ -23,6 +26,7 @@ function Menu(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(true);
+  const [ role, setRole ] = useState( localStorage.getItem('role') === "intern" ? "intern-home" : "mentor-home" )
 
   const handleDrawerOpen = () => {
     setOpen(!open);
@@ -32,24 +36,47 @@ function Menu(props) {
     setOpen(false);
   };
 
-  const listMenu = [
-    {
-      text: 'Discuss',
-      link: '/discuss'
-    },
-    {
-      text: 'Mentor',
-      link: '/mentor'
-    },
-    {
-      text: 'Profile',
-      link: '/profile'
-    },
-    {
-      text: 'Log out',
-      link: '/'
-    },
-  ]
+  const listMenu = () => {
+    if ( role === "intern-home") {
+      return [
+        {
+          text: 'Discuss',
+          link: '/discuss'
+        },
+        {
+          text: 'Mentor',
+          link: '/mentor'
+        },
+        {
+          text: 'Profile',
+          link: '/profile'
+        },
+        {
+          text: 'Log out',
+          link: '/'
+        },
+      ]
+    } else {
+      return [
+        {
+          text: 'Interns',
+          link: '/interns',
+        },
+        {
+          text: 'Assignments',
+          link: '/assignments',
+        },
+        {
+          text: 'Profile',
+          link: '/profile'
+        },
+        {
+          text: 'Log out',
+          link: '/'
+        },
+      ]
+    }
+  }
 
   const IconMenu = (text) => {
     switch (text) {
@@ -61,6 +88,10 @@ function Menu(props) {
         return <AssignmentIndIcon/>
       case 'Log out':
         return <ExitToAppIcon/>
+      case 'Interns':
+        return <AssignmentIndIcon/>
+      case 'Assignments':
+        return <AssignmentIcon/>
       default:
         break;
     }
@@ -114,12 +145,12 @@ function Menu(props) {
         </div>
         <Divider />
         <List>
-          {listMenu.map((item, index) => (
+          {listMenu().map((item, index) => (
             <ListItem button key={item.text} onClick={ () => logOut(item) }>
               <ListItemIcon>
                 {IconMenu(item.text)}
               </ListItemIcon>
-              <Link className={ classes.linkItemMenu } to={`/intern-home${item.link}`}>
+              <Link className={ classes.linkItemMenu } to={`/${role}${item.link}`}>
                 <ListItemText primary={item.text} />
               </Link>
             </ListItem>
@@ -133,8 +164,9 @@ function Menu(props) {
       >
         <div className={classes.drawerHeader} />
         <Switch>
-          <Route path="/intern-home/profile" component={ Profile }/>
-          <Route path="/intern-home/discuss" component={ Discuss }/>
+          <Route path={`/${role}/discuss`} component={ Discuss }/>
+          <Route path={`/${role}/profile`} component={ Profile }/>
+          <Route path={`/${role}/mentor`} component={ Mentor }/>
         </Switch>
       </main>
     </div>

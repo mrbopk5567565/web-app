@@ -8,6 +8,13 @@ const styles = makeStyles(() =>
     profile: {
       display: 'flex',
       position: "relative",
+      alignItems: 'center',
+      textAlign: 'center',
+      justifyContent: 'center',
+      width: '600px',
+      padding: '50px',
+      border: `1px solid ${colorLogo}`,
+      borderRadius: '5px',
     },
     editImage: {
       position: "absolute",
@@ -30,7 +37,7 @@ const styles = makeStyles(() =>
     },
     info: {
       padding: '0 0 0 50px',
-      borderLeft: '1px solid black',
+      borderLeft: `1px solid ${colorLogo}`,
       marginLeft: '60px',
     },
     infoItem: {

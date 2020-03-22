@@ -14,7 +14,6 @@ const Profile = memo((props) => {
   const [ dayOfBirth, setDayOfBirth ] = useState('');
   const [ image, setImage ] = useState([])
   useEffect(() => {
-    console.log('2', props.user_detail)
     props.dispatch({ type: userConstant.LOAD_USER_DETAIL_REQUEST })
   }, [])
   const classes = styles();
@@ -48,7 +47,6 @@ const Profile = memo((props) => {
     props.dispatch({ type: userConstant.UPDATE_USER_DETAIL_REQUEST , profile })
     setDialog(false);
     setIsShowBtnChange(false)
-    console.log('1')
   }
 
   const changeInfo = (e) => {

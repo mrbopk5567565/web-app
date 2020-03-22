@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
-import Menu from '../../components/Menu'
 // import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Menu from '../../components/Menu'
 // import * as userConstant from '../../redux/constants/userConstants';
 import { connect } from 'react-redux'
 
-const InternHome = ()=> {
+const InternHome = (props)=> {
+  // useEffect(() => {
+  //   props.dispatch({ type: userConstant.LOAD_USER_DETAIL_REQUEST })
+  // }, [])
   return(
     <React.Fragment>
       <Menu/>
