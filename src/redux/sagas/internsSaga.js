@@ -5,8 +5,7 @@ import { loadMentorDetail } from '../../api/internsApi'
 function* onLoadMentorDetail() {
   try {
     const mentor_detail = yield call(loadMentorDetail)
-    console.log('mentor_detail', mentor_detail)
-    yield put({ type: internConstants.LOAD_MENTOR_DETAIL_SUCCESS, mentor_detail })
+    yield put({ type: internConstants.LOAD_MENTOR_DETAIL_SUCCESS, payload: mentor_detail })
   } catch (error) {
     console.log(error)
   }

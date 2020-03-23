@@ -9,7 +9,7 @@ const styles = makeStyles(() =>
       display: 'flex',
       position: "relative",
       alignItems: 'center',
-      textAlign: 'center',
+      // textAlign: 'center',
       justifyContent: 'center',
       width: '600px',
       padding: '50px',

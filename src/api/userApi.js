@@ -26,3 +26,8 @@ export const UserApiUpdateUserDetail = async (data_update) => {
   const res = await axios.put("/api/v1/users", data_update)
   return res.data;
 }
+
+export const UserApiLoadMentorsName = async (team) => {
+  const res = await axios.get(`/api/v1/users/mentors_name?team=${team}`)
+  return res.data;
+}

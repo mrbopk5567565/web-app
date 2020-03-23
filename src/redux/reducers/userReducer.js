@@ -27,6 +27,10 @@ const userReducer = (state = initialState, action) =>
         newState.user_detail = action.payload;
       case userConstants.UPDATE_USER_DETAIL_SUCCESS:
         newState.user_detail = action.payload;
+      
+      // get name mentors
+      case userConstants.LOAD_MENTORS_NAME_SUCCESS:
+        newState.mentors = action.payload;
       default:
         return newState;
     }

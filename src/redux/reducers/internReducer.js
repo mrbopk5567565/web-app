@@ -8,7 +8,7 @@ const initialState = {
   pagination: []
 }
 
-export default internReducer = (state = initialState, action) => 
+const internReducer = (state = initialState, action) => 
   produce(state, newState => {
     switch (action.type) {
       case internConstants.LOAD_MENTOR_DETAIL_SUCCESS:
@@ -19,3 +19,5 @@ export default internReducer = (state = initialState, action) =>
     }
     return newState;
   })
+
+export default internReducer;

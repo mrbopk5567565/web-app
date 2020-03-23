@@ -12,10 +12,17 @@ const Profile = memo((props) => {
   const [ dialog, setDialog ] = useState(false);
   const [ name, setName ] = useState('');
   const [ dayOfBirth, setDayOfBirth ] = useState('');
-  const [ image, setImage ] = useState([])
+  const [ image, setImage ] = useState([]);
   useEffect(() => {
     props.dispatch({ type: userConstant.LOAD_USER_DETAIL_REQUEST })
-  }, [])
+
+    const profile = new FormData();
+    if ( image.length !== 0 ){
+      profile.append('image', image[0])
+      props.dispatch({ type: userConstant.UPDATE_USER_DETAIL_REQUEST , profile })
+    }
+
+  }, [image])
   const classes = styles();
 
   const showInput = () => {
@@ -36,14 +43,7 @@ const Profile = memo((props) => {
     const profile = new FormData();
     profile.append('name', name)
     profile.append('date_of_birth', dayOfBirth)
-    // console.log(image)
-    if ( image.length != 0 ) {
-      profile.append('image', image[0])
-    }
-    // profile.append('image', image[0])
-    // console.log(profile)
-    // const data_update = { name: name, date_of_birth: dayOfBirth, image: { url: image[0] } }
-
+  
     props.dispatch({ type: userConstant.UPDATE_USER_DETAIL_REQUEST , profile })
     setDialog(false);
     setIsShowBtnChange(false)
@@ -63,13 +63,12 @@ const Profile = memo((props) => {
   }
 
   const handleImage = (e) => {
-    // console.log(e.target.files)
     setImage(e.target.files)
   }
   
   const handleChangeImage = () => {
     const thinh = document.getElementById('inputFile');
-    thinh.click()
+    thinh.click();
   }
 
   return(
@@ -80,7 +79,7 @@ const Profile = memo((props) => {
         </div>
         <div onClick={ handleChangeImage } className={ classes.image }>
           { props.user_detail &&
-            <img src={ image && props.user_detail.image ? `${domain}${props.user_detail.image.url}` : imageDefault } alt="image_personal"/>
+            <img src={ /*image &&*/ props.user_detail.image ? `${domain}${props.user_detail.image.url}` : imageDefault } alt="image_personal"/>
           }
         </div>
         { props.user_detail && 
@@ -95,9 +94,9 @@ const Profile = memo((props) => {
               open={dialog}
               onClose={handleCloseDialog}
             >
-              <DialogTitle>Thinh</DialogTitle>
+              <DialogTitle>Nofication !</DialogTitle>
               <DialogContent>
-                Thinh 123
+                Do you want change your profile ?
               </DialogContent>
               <DialogActions>
                 <Button onClick={handleCloseDialog} color="primary">
