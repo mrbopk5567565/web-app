@@ -4,6 +4,7 @@ import produce from 'immer'
 const initialState = {
   user: [],
   errors: [],
+  confirm_email: [],
   mentors: [],
   user_detail: [],
   // loggedIn: false,
@@ -40,6 +41,16 @@ const userReducer = (state = initialState, action) =>
         break;
       case userConstants.USER_SIGNUP_FAILURE:
         newState.errors = action.error;
+        break;
+
+      // confirm email for reset password
+      case userConstants.CONFIRM_EMAIL_SUCCESS:
+        newState.confirm_email = action.payload;
+        break;
+      
+      // reset password
+      case userConstants.RESET_PASSWORD_SUCCESS:
+        newState.user = action.payload;
         break;
       default:
         return newState;

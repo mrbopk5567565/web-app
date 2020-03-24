@@ -33,14 +33,13 @@ export const styles = makeStyles(() =>
       display: 'flex',
       flexDirection: 'column',
     },
-    forgot: {
-      textAlign: 'end',
-      cursor: 'pointer',
+    resetFailure: {
+      margin: '0 10px',
+      color: `${colors.colorLogo}`,
     },
-    forgotLink: {
-      color: colors.colorLogo,
-      fontSize: 14,
-      textDecoration: 'none',
+    resetSuccess: {
+      margin: '0 10px',
+      color: '#76ff03',
     },
     buttons: {
       marginTop: '40px',

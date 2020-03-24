@@ -17,6 +17,7 @@ import Vinova_Logo from '../../images/Vinova_Logo.png';
 import Profile from '../../components/Profile';
 import Discuss from '../../components/Discuss';
 import Mentor from '../../components/Mentor';
+import InternsList from '../../components/InternsList'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../utils/common';
@@ -59,8 +60,8 @@ function Menu(props) {
     } else {
       return [
         {
-          text: 'Interns',
-          link: '/interns',
+          text: 'Interns List',
+          link: '/interns-list',
         },
         {
           text: 'Assignments',
@@ -88,7 +89,7 @@ function Menu(props) {
         return <AssignmentIndIcon/>
       case 'Log out':
         return <ExitToAppIcon/>
-      case 'Interns':
+      case 'Interns List':
         return <AssignmentIndIcon/>
       case 'Assignments':
         return <AssignmentIcon/>
@@ -163,11 +164,21 @@ function Menu(props) {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Switch>
-          <Route path={`/${role}/discuss`} component={ Discuss }/>
-          <Route path={`/${role}/profile`} component={ Profile }/>
-          <Route path={`/${role}/mentor`} component={ Mentor }/>
-        </Switch>
+        { role === "intern-home" &&
+          <Switch>
+            <Route path={`/${role}/discuss`} component={ Discuss }/>
+            <Route path={`/${role}/profile`} component={ Profile }/>
+            <Route path={`/${role}/mentor`} component={ Mentor }/>
+          </Switch>
+        }
+        { role === "mentor-home" &&
+          <Switch>
+            {/* <Route path={`/${role}/discuss`} component={ Discuss }/> */}
+            {/* <Route path={`/${role}/mentor`} component={ Mentor }/> */}
+            <Route path={`/${role}/profile`} component={ Profile }/>
+            <Route path={`/${role}/interns-list`} component={ InternsList }/>
+          </Switch>
+        }
       </main>
     </div>
   );

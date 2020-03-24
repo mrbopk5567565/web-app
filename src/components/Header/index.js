@@ -4,7 +4,8 @@ import Navigation from '../Navigation';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import logo from '../../images/Vinova_Logo.png'
 
 const Wrapper = styled.div`
   display: flex;
@@ -55,7 +56,8 @@ function Header(){
     <Wrapper>
       <WrapLink>
         <Icon to="/">
-          <img src="https://vinova.sg/wp-content/themes/Divi/assetsV2/img/Vinova_Logo.png"/>
+          <img src={ logo }/>
+          {/* <img src="https://vinova.sg/wp-content/themes/Divi/assetsV2/img/Vinova_Logo.png"/> */}
         </Icon>
       </WrapLink>
       <Search>

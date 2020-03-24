@@ -33,6 +33,16 @@ export const styles = makeStyles(() =>
       display: 'flex',
       flexDirection: 'column',
     },
+    confirmSuccess: {
+      margin: '0 10px',
+      fontSize: '16px',
+      color: '#76ff03',
+    },
+    confirmFailure: {
+      margin: '0 10px',
+      fontSize: '16px',
+      color: `${colors.colorLogo}`,
+    },
     buttons: {
       marginTop: '40px',
       textAlign: 'center',

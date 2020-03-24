@@ -43,3 +43,14 @@ export const UserApiConfirmUser = async (token) => {
   const res = await axios.get(`/api/v1/users/confirm_user?token=${token}`)
   return res;
 }
+
+export const UserApiConfirmEmail = async (email) => {
+  const res = await axios.get(`/api/v1/users/send_reset_password_instruction?email=${email}`)
+  return res.data;
+}
+
+export const UserApiResetPassword = async (new_password) => {
+  const res = await axios.put(`/api/v1/users/reset_password`, new_password)
+  console.log('res',res)
+  return res;
+}
