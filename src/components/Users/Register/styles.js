@@ -4,8 +4,15 @@ import * as colors from '../../../utils/color';
 
 const styles = makeStyles(() =>
   createStyles({
+    register: {
+      backgroundImage: '-webkit-linear-gradient( 136deg,rgb(149,153,226) 0%,rgb(139,198,236) 100%)',
+      padding: '40px 0', 
+    },
     registerPage: {
       fontFamily: 'sans-serif',
+    },
+    textPrimary: {
+      color: 'white',
     },
     registerForm: {
       display: 'flex',
@@ -16,7 +23,8 @@ const styles = makeStyles(() =>
     registerAccount: {
       width: '50%',
       borderRadius: '15px 0 0 15px',
-      background: '#54e6dd',
+      // background: '#54e6dd',
+      background: 'white',
     },
     registerAccountForm: {
       width: '80%',
@@ -31,14 +39,23 @@ const styles = makeStyles(() =>
     checkbox: {
       marginTop: '20px',
       '& input': {
-        
+        backgroundColor: '#fafafa',
+        border: '1px solid #cacece',
+        boxShadow: '0 1px 2px rgba(0,0,0,0.05), inset 0px -15px 10px -12px rgba(0,0,0,0.05)',
+        padding: '9px',
+        borderRadius: '3px',
+        display: 'inline-block',
+        width: '18px',
+        height: '18px',
+        margin: '0 5px 0 0',
       }
     },
     registerGeneral: {
       display: 'flex',
       flexDirection: 'column',
       width: '50%',
-      background: '#2271dd',
+      // background: '#2271dd',
+      background: '#7ed6df',
       borderRadius: '0 15px 15px 0',
     },
     registerGeneralForm: {
@@ -51,12 +68,43 @@ const styles = makeStyles(() =>
       fontSize: '24px',
       color: '#ffffff',
     },
-    inputField: {
+    inputFieldLeft: {
       marginBottom: '12px',
-      
-      '& input': {
+      '& label': {
+        color: '#666',
+      },
+      '& div input': {
         padding: '12px 15px 12px 0',
       }
+    },
+    
+    inputFieldRight: {
+      marginBottom: '12px',
+      '& label': {
+        color: 'white !important',
+      },
+      '& div div': {
+        padding: '12px 15px 12px 0',
+      },
+      '& div input': {
+        padding: '12px 15px 12px 0',
+      }
+    },
+    labelFocus: {
+      color: 'white !important',
+    },
+    inputDate: {
+      color: 'white',
+    },
+    messageError: {
+      marginTop: '20px',
+      fontSize: '20px',
+      color: `${colors.colorLogo}`,
+    },
+    messageTrue: {
+      marginTop: '20px',
+      fontSize: '20px',
+      color: '#27ae60',
     },
     buttonSubmit: {
       width: '150px',

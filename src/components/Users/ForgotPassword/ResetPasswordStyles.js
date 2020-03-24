@@ -3,9 +3,9 @@ import * as colors from '../../../utils/color';
 import styled from 'styled-components';
 import backgroundLogin from '../../../images/backgroundLogin.png';
 
-const styles = makeStyles(() => 
+export const styles = makeStyles(() =>
   createStyles({
-    Login: {
+    Reset: {
       backgroundImage: `url(${backgroundLogin})`,
       backgroundAttachment: 'fixed',
       backgroundRepeat: 'no-repeat',
@@ -64,7 +64,7 @@ const styles = makeStyles(() =>
       color: colors.colorLogo,
     }
   })
-);
+)
 
 export const Errors = styled.p`
   color: ${colors.colorLogo};
@@ -97,5 +97,5 @@ export const Errors = styled.p`
     border-radius: 3px;
   }
 `
-export default styles;
 
+export default styles;

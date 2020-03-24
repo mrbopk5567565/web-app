@@ -1,4 +1,5 @@
 // import * as userConstant from '../redux/constants/userConstants'
+import axios from 'axios';
 
 export function logout() {
   localStorage.removeItem('user');
@@ -22,4 +23,4 @@ export const randomColor = () => {
   return color;
 }
 
-export const domain = 'http://172.104.171.131/'
+export const domain = 'http://172.104.171.131/';

@@ -4,10 +4,7 @@ import Menu from '../../components/Menu'
 // import * as userConstant from '../../redux/constants/userConstants';
 import { connect } from 'react-redux'
 
-const InternHome = (props)=> {
-  // useEffect(() => {
-  //   props.dispatch({ type: userConstant.LOAD_USER_DETAIL_REQUEST })
-  // }, [])
+const MentorHome = (props)=> {
   return(
     <React.Fragment>
       <Menu/>
@@ -15,4 +12,4 @@ const InternHome = (props)=> {
   )
 }
 
-export default connect()(InternHome);
+export default connect()(MentorHome);

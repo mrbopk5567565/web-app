@@ -1,34 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Header from '../../Header';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import styles, { Errors } from './ResetPasswordStyles';
 import { TextField, Button, Input } from '@material-ui/core';
-import * as userConstants from '../../../redux/constants/userConstants';
-import Header from '../../Header'
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-import styles, { Errors } from './styles'
-
-function Login(props) {
-  // console.log('login', props)
+const ResetPassword = (props) => {
   const classes = styles();
-    
-  const handleLogIn = () => {
-  }
   
   const { register, handleSubmit, errors } = useForm()
-  const onSubmit= (data) => {
-    // console.log(data)
-    const user = {email: data.email, password: data.password}
-    props.dispatch({ type: userConstants.USER_LOGIN_REQUEST, user, props })
-    // props.dispatch({ type: userConstants.LOAD_USER_DETAIL_REQUEST })
-  }
+  const onSubmit = (data) => {
 
+  }
   return(
     <div>
       <Header/>
-      <div className={ classes.Login }>
+      <div className={ classes.Reset }>
         <div className={ classes.Wrapper }>
-          <h2 className={ classes.h2 }>Log In</h2>
+          <h2 className={ classes.h2 }>Reset Password</h2>
           <form className={ classes.form } onSubmit={ handleSubmit(onSubmit) }>
             <TextField
               color="secondary"
@@ -62,7 +52,6 @@ function Login(props) {
               <Button 
                 className={ classes.buttonLogIn } 
                 type="submit"
-                onClick={ handleLogIn }
               >
                 Log In
               </Button>
@@ -82,4 +71,4 @@ const mapStateToProp = (state) => ({
   loggedIn: state.user.loggedIn,
 })
 
-export default connect(mapStateToProp)(Login);
+export default connect(mapStateToProp)(ResetPassword);
