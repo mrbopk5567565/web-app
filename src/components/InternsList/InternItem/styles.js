@@ -1,20 +1,27 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import { randomColor } from '../../utils/common';
-import { colorLogo } from '../../utils/color'
+import { randomColor } from '../../../utils/common';
+import { colorLogo } from '../../../utils/color'
 
 const styles = makeStyles(() => 
   createStyles({
     profile: {
+      cursor: 'pointer',
       display: 'flex',
       position: "relative",
       alignItems: 'center',
-      // textAlign: 'center',
-      justifyContent: 'center',
-      width: '600px',
-      padding: '50px 0',
-      border: `1px solid ${colorLogo}`,
+      // justifyContent: 'center',
+      width: 'calc(100%/2 - 10px)',
+      padding: '20px 10px',
+      border: `1px solid #00cec9`,
       borderRadius: '5px',
+      margin: '5px',
+      transition: '0.3s',
+      '&:hover': {
+        transform: 'scale(1.025,1.025)',
+        transition: '0.3s',
+        border: `1px solid ${colorLogo}`,
+      },
     },
     editImage: {
       position: "absolute",
@@ -38,22 +45,11 @@ const styles = makeStyles(() =>
     info: {
       padding: '0 0 0 50px',
       borderLeft: `1px solid ${colorLogo}`,
-      marginLeft: '60px',
+      marginLeft: '20px',
     },
     infoItem: {
       margin: '30px 0 10px 0',
       position: 'relative',
-
-      // '&::before': {
-      //   content: '',
-      //   position: 'absolute',
-      //   top: '0',
-      //   left: '0',
-      //   width: '10px',
-      //   height: '10px',
-      //   borderRadius: '50%',
-      //   background: 'red',
-      // },
     },
     buttonChange: {
       color: `${colorLogo}`,

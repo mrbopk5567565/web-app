@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo, useMemo } from 'react';
 import styles, { InfoItem } from './styles';
 import { connect } from 'react-redux';
 import * as userConstant from '../../redux/constants/userConstants';
-import imageDefault from '../../images/backgroundLogin.png';
+import imageDefault from '../../images/no_image.jpg';
 import { Input, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@material-ui/core';
 import moment from 'moment';
 import { domain } from '../../utils/common'
@@ -79,7 +79,7 @@ const Profile = memo((props) => {
         </div>
         <div onClick={ handleChangeImage } className={ classes.image }>
           { props.user_detail &&
-            <img src={ /*image &&*/ props.user_detail.image ? `${domain}${props.user_detail.image.url}` : imageDefault } alt="image_personal"/>
+            <img src={ props.user_detail.image.url !== null ? `${domain}${props.user_detail.image.url}` : imageDefault } alt="image_personal"/>
           }
         </div>
         { props.user_detail && 

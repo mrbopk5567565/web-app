@@ -12,7 +12,7 @@ const styles = makeStyles(() =>
       // textAlign: 'center',
       justifyContent: 'center',
       width: '600px',
-      padding: '50px 0',
+      padding: '50px',
       border: `1px solid ${colorLogo}`,
       borderRadius: '5px',
     },
