@@ -1,7 +1,8 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import { randomColor } from '../../../utils/common';
-import { colorLogo } from '../../../utils/color'
+import { colorLogo } from '../../../utils/color';
+import { device } from '../../../utils/device';
 
 const styles = makeStyles(() => 
   createStyles({
@@ -83,6 +84,21 @@ export const InfoItem = styled.div`
     background: ${randomColor};
     transform: translate(-10%, -50%);
     z-index: -1;
+  }
+`;
+
+export const Profile = styled.div`
+  @media ${device.mobileS} {
+    width: calc(100%/1 - 5px);
+  };
+  @media ${device.laptopS} {
+    width: calc(100%/2 - 10px);
+  };
+  @media ${device.laptopL} {
+    width: calc(100%/3 - 15px);
+  };
+  @media ${device.desktop} {
+    width: calc(100%/4 - 20px);
   }
 `;
 

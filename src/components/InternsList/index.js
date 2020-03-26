@@ -97,7 +97,7 @@ const Pagination = styled.div`
     font-size: 18px;
     margin: 0 2px; 
     cursor: pointer;
-    padding 10px 15px;
+    padding: 10px 15px;
     border: 1px solid #8e44ad;
     border-radius: 5px;
   }

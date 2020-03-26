@@ -1,5 +1,5 @@
 import React from 'react';
-import styles, { InfoItem } from './styles';
+import styles, { InfoItem, Profile } from './styles';
 import { connect } from 'react-redux';
 import { domain } from '../../../utils/common';
 import imageDefault from '../../../images/no_image.jpg';
@@ -10,7 +10,7 @@ const InternItem = (props) => {
   const classes = styles();
   return(
     <React.Fragment>
-      <div className={ classes.profile } onClick={ props.goPageDetail }>
+      <Profile className={ classes.profile } onClick={ props.goPageDetail }>
         <div className={ classes.editImage }>
           <input id="inputFile" type="file" accept="image/*"/>
         </div>
@@ -27,7 +27,7 @@ const InternItem = (props) => {
             <InfoItem className={ classes.infoItem }>{ `Start day: ${ moment(props.data.start_day).format("DD/MM/YYYY") }` }</InfoItem>
           </div>
         }
-    </div>
+    </Profile>
   </React.Fragment>
   )
 }
