@@ -178,7 +178,8 @@ function Menu(props) {
             {/* <Route path={`/${role}/mentor`} component={ Mentor }/> */}
             <Route path={`/${role}/profile`} component={ Profile }/>
             <Route exact path={`/${role}/interns-list`} component={ InternsList }/>
-            <Route exact path={`/${role}/interns-list/intern-detail/:id`} component={ InternDetail }/>
+            {/* <Route exact path={`/${role}/interns-list/intern-detail/:id`} component={ InternDetail }/> */}
+            <Route exact path={`/${role}/interns-list/intern-detail/:page/:id`} component={ InternDetail }/>
           </Switch>
         }
       </main>

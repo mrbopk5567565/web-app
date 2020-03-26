@@ -10,18 +10,12 @@ const styles = makeStyles(() =>
       display: 'flex',
       position: "relative",
       alignItems: 'center',
-      // justifyContent: 'center',
       width: 'calc(100%/2 - 10px)',
       padding: '20px 10px',
       border: `1px solid #00cec9`,
       borderRadius: '5px',
       margin: '5px',
       transition: '0.3s',
-      '&:hover': {
-        transform: 'scale(1.025, 1.025)',
-        transition: '0.3s',
-        border: `1px solid ${colorLogo}`,
-      },
     },
     editImage: {
       position: "absolute",

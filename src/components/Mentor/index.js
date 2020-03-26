@@ -22,7 +22,7 @@ const Mentor = (props) => {
           <input id="inputFile" type="file" accept="image/*"/>
         </div>
         <div className={ classes.image }>
-          { props.mentor_detail &&
+          { props.mentor_detail && props.mentor_detail.image &&
             <img src={ props.mentor_detail.image.url !== null ? `${domain}${props.mentor_detail.image.url}` : imageDefault } alt="image_personal"/>
           }
         </div>

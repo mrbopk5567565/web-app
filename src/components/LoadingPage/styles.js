@@ -3,6 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 const styles = makeStyles(() =>
   createStyles({
     body: {
+      width: '100%',
       height: '100%',
       textAlign: 'center',
       background: '#242F3F',

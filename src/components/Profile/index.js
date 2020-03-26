@@ -78,7 +78,7 @@ const Profile = memo((props) => {
           <input id="inputFile" onChange={ handleImage } type="file" accept="image/*"/>
         </div>
         <div onClick={ handleChangeImage } className={ classes.image }>
-          { props.user_detail &&
+          { props.user_detail && props.user_detail.image &&
             <img src={ props.user_detail.image.url !== null ? `${domain}${props.user_detail.image.url}` : imageDefault } alt="image_personal"/>
           }
         </div>
