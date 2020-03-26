@@ -1,5 +1,4 @@
 // import * as userConstant from '../redux/constants/userConstants'
-import axios from 'axios';
 
 export function logout() {
   localStorage.removeItem('user');
@@ -12,9 +11,9 @@ export const randomColor = () => {
   let color = '#';
   // let color1 = '#';
 
-  for (let i = 0; i < 6; i++){
-      color += letters[Math.floor(Math.random() * 16)]
-      // console.log('color test: ', color)     
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)]
+    // console.log('color test: ', color)     
   }
 
   // color1 = Math.floor(Math.random() * 16)

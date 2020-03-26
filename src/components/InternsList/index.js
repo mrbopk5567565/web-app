@@ -13,7 +13,7 @@ const InternsList = (props) => {
   useEffect(() => {
     props.dispatch({ type: mentorConstants.LOAD_INTERNS_REQUEST, page })
 
-    if (id !== 0){
+    if (id !== 0) {
       props.history.push(`/mentor-home/interns-list/intern-detail/${page}/${id}`)
     }
   }, [page, id])
@@ -24,7 +24,7 @@ const InternsList = (props) => {
   useMemo(() => {
     if (props.page !== undefined) {
       const flag = [];
-      for(let i = 1; i <= props.page.total_pages; i++){
+      for (let i = 1; i <= props.page.total_pages; i++) {
         flag.push(i);
       }
       setTotalpage(flag)
@@ -33,34 +33,32 @@ const InternsList = (props) => {
 
   const SwapPagination = (page) => {
     setPage(page)
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
   }
 
-  console.log('123', props.loading_page)
-
-  return(
+  return (
     <React.Fragment>
       <Wrapper>
         <p>Profile Intern</p>
-        { props.loading === true &&
-          <LoadingPage/>
+        {props.loading === true &&
+          <LoadingPage />
         }
         <ListInterns>
-          { props.list_intern && props.list_intern.map((item, idx) =>
+          {props.list_intern && props.list_intern.map((item, idx) =>
             <InternItem
               key={idx}
               data={item}
-              goPageDetail={ () => setId(item.id) /*, () => goPageDetail(item.id)*/ }
+              goPageDetail={() => setId(item.id) /*, () => goPageDetail(item.id)*/}
             />
           )}
         </ListInterns>
         <Pagination>
-            { (props.page && props.page.total_pages && totalpage.length != 0) && totalpage.map((page, idx) =>
-              <button key={idx} onClick={ () => SwapPagination(page) }>{ page }</button>
-            )}
+          {(props.page && props.page.total_pages && totalpage.length != 0) && totalpage.map((page, idx) =>
+            <button key={idx} onClick={() => SwapPagination(page)}>{page}</button>
+          )}
         </Pagination>
-        { props.loading === true &&
-          <LoadingPage/>
+        {props.loading === true &&
+          <LoadingPage />
         }
       </Wrapper>
     </React.Fragment>

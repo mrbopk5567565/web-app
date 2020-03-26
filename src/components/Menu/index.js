@@ -18,8 +18,9 @@ import Profile from '../../components/Profile';
 import Discuss from '../../components/Discuss';
 import Mentor from '../../components/Mentor';
 import InternsList from '../../components/InternsList';
-import InternDetail from '../InternsList/InternDetail'
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import InternDetail from '../InternsList/InternDetail';
+import Assignments from '../Assignments'
+import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../utils/common';
 import * as userConstant from '../../redux/constants/userConstants';
@@ -174,11 +175,9 @@ function Menu(props) {
         }
         { role === "mentor-home" &&
           <Switch>
-            {/* <Route path={`/${role}/discuss`} component={ Discuss }/> */}
-            {/* <Route path={`/${role}/mentor`} component={ Mentor }/> */}
+            <Route exact path={`/${role}/assignments`} component={ Assignments }/>
             <Route path={`/${role}/profile`} component={ Profile }/>
             <Route exact path={`/${role}/interns-list`} component={ InternsList }/>
-            {/* <Route exact path={`/${role}/interns-list/intern-detail/:id`} component={ InternDetail }/> */}
             <Route exact path={`/${role}/interns-list/intern-detail/:page/:id`} component={ InternDetail }/>
           </Switch>
         }

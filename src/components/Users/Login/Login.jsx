@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -9,27 +9,26 @@ import Header from '../../Header'
 import styles, { Errors } from './styles'
 
 function Login(props) {
-  // console.log('login', props)
   const classes = styles();
-    
+
   const handleLogIn = () => {
   }
-  
+
   const { register, handleSubmit, errors } = useForm()
-  const onSubmit= (data) => {
-    // console.log(data)
-    const user = {email: data.email, password: data.password}
+  const onSubmit = (data) => {
+
+    const user = { email: data.email, password: data.password }
     props.dispatch({ type: userConstants.USER_LOGIN_REQUEST, user, props })
     // props.dispatch({ type: userConstants.LOAD_USER_DETAIL_REQUEST })
   }
 
-  return(
+  return (
     <div>
-      <Header/>
-      <div className={ classes.Login }>
-        <div className={ classes.Wrapper }>
-          <h2 className={ classes.h2 }>Log In</h2>
-          <form className={ classes.form } onSubmit={ handleSubmit(onSubmit) }>
+      <Header />
+      <div className={classes.Login}>
+        <div className={classes.Wrapper}>
+          <h2 className={classes.h2}>Log In</h2>
+          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
             <TextField
               color="secondary"
               label="email"
@@ -37,11 +36,11 @@ function Login(props) {
               name="email"
               id="email"
               variant="outlined"
-              className={ classes.inputField }
-              inputRef={ register({ required: true, minLength: 8 })}
-              />
-            { errors.email && errors.email.type === 'required' && <Errors>This is required 1</Errors>}
-            { errors.email && errors.email.type === 'minLength' && <Errors>This is required 2</Errors>}
+              className={classes.inputField}
+              inputRef={register({ required: true, minLength: 8 })}
+            />
+            {errors.email && errors.email.type === 'required' && <Errors>This is required 1</Errors>}
+            {errors.email && errors.email.type === 'minLength' && <Errors>This is required 2</Errors>}
             <TextField
               color="secondary"
               label="password"
@@ -49,25 +48,25 @@ function Login(props) {
               name="password"
               id="password"
               variant="outlined"
-              className={ classes.inputField }
-              inputRef={ register({ required: true, minLength: 8 })}
+              className={classes.inputField}
+              inputRef={register({ required: true, minLength: 8 })}
             />
-            { errors.password && errors.password.type === 'required' && <Errors>This is required 1</Errors>}
-            { errors.password && errors.password.type === 'minLength' && <Errors>This is required 2</Errors>}
-            { props.errors.length != 0 && !props.loggedIn ? <Errors>{ props.errors }</Errors> : ''}
-            <p className={ classes.forgot }>
-              <Link className={ classes.forgotLink } to="/confirm_email">Forgot Password ?</Link>
+            {errors.password && errors.password.type === 'required' && <Errors>This is required 1</Errors>}
+            {errors.password && errors.password.type === 'minLength' && <Errors>This is required 2</Errors>}
+            {props.errors.length != 0 && !props.loggedIn ? <Errors>{props.errors}</Errors> : ''}
+            <p className={classes.forgot}>
+              <Link className={classes.forgotLink} to="/confirm_email">Forgot Password ?</Link>
             </p>
-            <div className={ classes.buttons }>
-              <Button 
-                className={ classes.buttonLogIn } 
+            <div className={classes.buttons}>
+              <Button
+                className={classes.buttonLogIn}
                 type="submit"
-                onClick={ handleLogIn }
+                onClick={handleLogIn}
               >
                 Log In
               </Button>
-              <Button className={ classes.buttonRegister }>
-                <Link className={ classes.Link } to="/register" >Register</Link>
+              <Button className={classes.buttonRegister}>
+                <Link className={classes.Link} to="/register" >Register</Link>
               </Button>
             </div>
           </form>
