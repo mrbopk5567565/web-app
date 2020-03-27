@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import * as assignmentsConstants from '../../../redux/constants/assignmentsConstants';
-import { LOAD_USER_DETAIL_REQUEST } from '../../../redux/constants/userConstants'
-import imageDefault from '../../../images/no_image.jpg';
-import { domain } from '../../../utils/common';
+// import imageDefault from '../../../images/no_image.jpg';
+// import { domain } from '../../../utils/common';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import {
   Dialog,
@@ -16,23 +17,30 @@ import {
 import * as colors from '../../../utils/color';
 
 const AssignmentItem = (props) => {
-  const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [openDetele, setOpenDetele] = useState(false);
   const [hours, setHours] = useState(0)
   const [days, setDays] = useState(0)
   const [weeks, setWeeks] = useState(0)
   const [question, setQuestion] = useState(props.item.question)
   const [description, setDescription] = useState(props.item.description)
+  const [id_assignment] = useState(props.item.id)
   const [errors, setErrors] = useState(false)
-  useEffect(() => {
-    // props.dispatch({ type: LOAD_USER_DETAIL_REQUEST })
-  }, [])
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpenEdit = () => {
+    setOpenEdit(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleClickOpenDetele = () => {
+    setOpenDetele(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDetele(false);
   };
 
   const handleSubmitData = () => {
@@ -49,12 +57,19 @@ const AssignmentItem = (props) => {
       if (weeks !== 0) {
         profile.append('weeks', weeks)
       }
-      // props.dispatch({ type: CREATE_ASSIGNMENT_REQUEST, profile })
+      props.dispatch({ type: assignmentsConstants.EDIT_ASSIGNMENTS_REQUEST, profile, id_assignment })
       setErrors(false);
-      setOpen(false);
+      setOpenEdit(false);
     } else {
       setErrors(true);
     }
+  }
+
+  const handleDeleteData = () => {
+    const id_assignment_detele = props.item.id
+    console.log('id_assignment', id_assignment_detele)
+    props.dispatch({ type: assignmentsConstants.DELETE_ASSIGNMENT_REQUEST, id_assignment_detele })
+    setOpenDetele(false);
   }
 
   const handleChange = (e) => {
@@ -82,7 +97,8 @@ const AssignmentItem = (props) => {
   return (
     <React.Fragment>
       <Wrapper>
-        <span onClick={handleClickOpen}>Edit</span>
+        <span onClick={handleClickOpenEdit}><EditIcon /></span>
+        <span className="detele" onClick={handleClickOpenDetele}><DeleteIcon /></span>
         <Id>
           <p>{`#${props.item.id}`}</p>
         </Id>
@@ -98,11 +114,11 @@ const AssignmentItem = (props) => {
         </Question>
       </Wrapper>
 
-      {/* Dialog */}
+      {/* Dialog Edit*/}
       <Dialog
         fullWidth={true}
-        open={open}
-        onClose={handleClose}
+        open={openEdit}
+        onClose={handleCloseEdit}
         aria-labelledby="form-dialog-title"
         disableBackdropClick
       >
@@ -152,7 +168,7 @@ const AssignmentItem = (props) => {
               }
             </SelectOption>
             <DialogActions>
-              <Button onClick={handleClose} color="primary">
+              <Button onClick={handleCloseEdit} color="primary">
                 Cancel
               </Button>
               <Button onClick={handleSubmitData} color="primary">
@@ -162,11 +178,40 @@ const AssignmentItem = (props) => {
           </form>
         </DialogContent>
       </Dialog>
+
+      {/* Dialog Delete*/}
+      <Dialog
+        fullWidth={true}
+        open={openDetele}
+        onClose={handleCloseDelete}
+        aria-labelledby="form-dialog-title"
+        disableBackdropClick
+      >
+        <DialogTitle id="form-dialog-title">Detele Assignment</DialogTitle>
+        <DialogContent>
+          Are you sure want to delete this assignment
+          <DialogActions>
+            <Button onClick={handleCloseDelete} color="primary">
+              Cancel
+              </Button>
+            <Button onClick={handleDeleteData} color="primary">
+              Detele
+              </Button>
+          </DialogActions>
+
+        </DialogContent>
+      </Dialog>
     </React.Fragment>
   )
 }
 
-export default connect()(AssignmentItem);
+const mapStateToProps = (state) => {
+  return {
+    status: state.assignment.status,
+  }
+}
+
+export default connect(mapStateToProps)(AssignmentItem);
 
 const Wrapper = styled.div`
   display: flex;
@@ -186,6 +231,12 @@ const Wrapper = styled.div`
   }
   span:hover {
     color: #2271dd;
+  }
+  .detele {
+    cursor: pointer;
+    position: absolute;
+    top: 40px;
+    right: 10px;
   }
 `;
 const Id = styled.div`

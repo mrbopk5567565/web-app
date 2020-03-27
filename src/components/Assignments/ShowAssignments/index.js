@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import AssignmentItem from '../AssignmentItem';
@@ -9,6 +9,7 @@ const ShowAssignments = (props) => {
   useEffect(() => {
     props.dispatch({ type: assignmentsConstants.LOAD_ASSIGNMENTS_REQUEST, page })
   }, [])
+
   return (
     <React.Fragment>
       <Wrapper>
