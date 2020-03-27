@@ -17,7 +17,7 @@ const Assignments = () => {
 export default Assignments;
 
 const Wrapper = styled.div`
-  width: 50%;
+  width: 40%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;

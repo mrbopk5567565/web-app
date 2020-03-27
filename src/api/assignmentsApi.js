@@ -8,3 +8,9 @@ export const CreateAssignment = async (profile) => {
   console.log('res assignment', res)
   return res.data;
 }
+
+export const LoadAssignment = async (page) => {
+  const res = await axios.get(`/api/v1/assignments?page=${page}`)
+  console.log('res', res)
+  return res.data;
+}

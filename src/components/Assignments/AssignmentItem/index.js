@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import * as assignmentsConstants from '../../../redux/constants/assignmentsConstants';
 import { LOAD_USER_DETAIL_REQUEST } from '../../../redux/constants/userConstants'
 import imageDefault from '../../../images/no_image.jpg';
 import { domain } from '../../../utils/common';
@@ -13,20 +14,19 @@ import {
   Button,
 } from '@material-ui/core';
 import * as colors from '../../../utils/color';
-import { CREATE_ASSIGNMENT_REQUEST } from '../../../redux/constants/assignmentsConstants'
 
-
-const CreateAssignment = (props) => {
+const AssignmentItem = (props) => {
   const [open, setOpen] = useState(false);
   const [hours, setHours] = useState(0)
   const [days, setDays] = useState(0)
   const [weeks, setWeeks] = useState(0)
-  const [question, setQuestion] = useState('')
-  const [description, setDescription] = useState('')
+  const [question, setQuestion] = useState(props.item.question)
+  const [description, setDescription] = useState(props.item.description)
   const [errors, setErrors] = useState(false)
   useEffect(() => {
-    props.dispatch({ type: LOAD_USER_DETAIL_REQUEST })
+    // props.dispatch({ type: LOAD_USER_DETAIL_REQUEST })
   }, [])
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -49,7 +49,7 @@ const CreateAssignment = (props) => {
       if (weeks !== 0) {
         profile.append('weeks', weeks)
       }
-      props.dispatch({ type: CREATE_ASSIGNMENT_REQUEST, profile })
+      // props.dispatch({ type: CREATE_ASSIGNMENT_REQUEST, profile })
       setErrors(false);
       setOpen(false);
     } else {
@@ -81,13 +81,21 @@ const CreateAssignment = (props) => {
 
   return (
     <React.Fragment>
-      <Wrapper onClick={handleClickOpen}>
-        <Image>
-          {props.user && props.user.image &&
-            <img src={props.user.image.url !== null ? `${domain}${props.user.image.url}` : imageDefault} alt="image_personal" />
-          }
-        </Image>
-        {props.user && <p>{`Hello ${props.user.name}`}<span>Let's create questions</span></p>}
+      <Wrapper>
+        <span onClick={handleClickOpen}>Edit</span>
+        <Id>
+          <p>{`#${props.item.id}`}</p>
+        </Id>
+        <Question>
+          <div className="question">{props.item.question}</div>
+          <InfoQuestion>
+            <p>{`Estimation: ${props.item.estimation}`}</p>
+            <p>{`Team: ${props.item.team}`}</p>
+          </InfoQuestion>
+          <Description>
+            {`Description: ${props.item.description}`}
+          </Description>
+        </Question>
       </Wrapper>
 
       {/* Dialog */}
@@ -98,7 +106,7 @@ const CreateAssignment = (props) => {
         aria-labelledby="form-dialog-title"
         disableBackdropClick
       >
-        <DialogTitle id="form-dialog-title">Create Question</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit Question</DialogTitle>
         <DialogContent>
           <form>
             <TextField
@@ -108,6 +116,7 @@ const CreateAssignment = (props) => {
               name="question"
               label="Question"
               type="text"
+              value={question}
               onChange={handleChange}
               fullWidth
             />
@@ -118,6 +127,7 @@ const CreateAssignment = (props) => {
               id="description"
               label="Description"
               type="text"
+              value={description}
               onChange={handleChange}
               fullWidth
             />
@@ -146,70 +156,81 @@ const CreateAssignment = (props) => {
                 Cancel
               </Button>
               <Button onClick={handleSubmitData} color="primary">
-                Create
+                Edit
               </Button>
             </DialogActions>
           </form>
         </DialogContent>
       </Dialog>
-    </React.Fragment >
+    </React.Fragment>
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user.user_detail,
-  }
-}
-
-export default connect(mapStateToProps)(CreateAssignment);
+export default connect()(AssignmentItem);
 
 const Wrapper = styled.div`
-  /*  distance between Create and Show Assignments */
-  margin-bottom: 30px;
-  width: 100%;
-  height: 75px;
-  background: #81d4fa;
-  border-radius: 10px;
   display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 10px 0;
   font-size: 16px;
-  justify-content: center;
-  color: #2271dd;
-  cursor: pointer;
   font-weight: 500;
+  background: #81d4fa;
+  padding: 10px 50px 10px 20px;
+  border-radius: 10px;
+  position: relative;
+  span {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  span:hover {
+    color: #2271dd;
+  }
+`;
+const Id = styled.div`
+  display: flex;
+  margin-right: 20px;
+  align-items: center;
   p {
     display: flex;
+    justify-content: center;
     align-items: center;
-    position: relative;
-    &::after {
-      content: ':)';
-      position: absolute;
-      top: 50%;
-      left: 33%;
-      transform: translate(0, -50%) rotate(90deg);
-    }
-    span {
-      margin-left: 30px;
-      padding: 8px;
-      border: 1px solid #2271dd;
-      border-radius: 16px;
-      background: #2271dd;
-      color: white;
-    }
-  }
-`
-
-const Image = styled.div`
-  width: 60px;
-  height: 100%;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  margin-right: 10px;
-  img {
+    width: 50px;
+    height: 50px;
+    /* padding: 10px; */
     border-radius: 50%;
-    max-width: 100%;
+    background: #2271dd;
+    color: white;
+  };
+`;
+const Question = styled.div`
+  color: white;
+  .question {
+    padding: 8px;
+    border-radius: 16px;
+    background: #2271dd;
+    margin: 5px 0; 
+  };
+  
+`;
+const InfoQuestion = styled.div`
+  display: flex;
+  margin: 5px 0;
+  p {
+    padding: 8px;
+    border-radius: 16px;
+    background: #2271dd;
+    margin: 0px;
+    margin-right: 10px;
   }
+`;
+const Description = styled.div`
+  margin: 5px 0;
+  width: 100%;
+  padding: 8px;
+  border-radius: 16px;
+  background: #2271dd;
 `;
 
 const SelectOption = styled.div`
