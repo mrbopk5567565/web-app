@@ -18,9 +18,6 @@ const InternsList = (props) => {
     }
   }, [page, id])
 
-  // xử lý id, so sanh vs id ben detail ( call action de get data again)
-  // xử lý page, theo localStore
-
   useMemo(() => {
     if (props.page !== undefined) {
       const flag = [];
@@ -44,7 +41,7 @@ const InternsList = (props) => {
           <LoadingPage />
         }
         <ListInterns>
-          {props.list_intern && props.list_intern.map((item, idx) =>
+          {props.list_intern && props.list_intern.data && props.list_intern.data.map((item, idx) =>
             <InternItem
               key={idx}
               data={item}
@@ -53,7 +50,7 @@ const InternsList = (props) => {
           )}
         </ListInterns>
         <Pagination>
-          {(props.page && props.page.total_pages && totalpage.length != 0) && totalpage.map((page, idx) =>
+          {(props.page && props.page && totalpage.length != 0) && totalpage.map((page, idx) =>
             <button key={idx} onClick={() => SwapPagination(page)}>{page}</button>
           )}
         </Pagination>
@@ -67,7 +64,7 @@ const InternsList = (props) => {
 
 const mapStateToProps = (state) => {
   return ({
-    list_intern: state.mentor.list_interns.data,
+    list_intern: state.mentor.list_interns,
     page: state.mentor.list_interns.metadata,
     loading: state.mentor.loading_page,
   })

@@ -3,10 +3,11 @@ import produce from 'immer';
 
 const initialState = {
   list_interns: {},
+  intern_detail: {},
   loading_page: false,
 }
 
-const mentorReducer =(state = initialState, action) =>
+const mentorReducer = (state = initialState, action) =>
   produce(state, newState => {
     switch (action.type) {
       case mentorConstants.LOAD_INTERNS_REQUEST:
@@ -15,7 +16,9 @@ const mentorReducer =(state = initialState, action) =>
           loading_page: true,
         }
       case mentorConstants.LOAD_INTERNS_SUCCESS:
-        newState.list_interns = action.payload;
+        console.log(action, '123')
+        newState.list_interns = action.data_interns;
+        newState.intern_detail = action.payload;
         newState.loading_page = false;
         break;
       default:

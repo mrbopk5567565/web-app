@@ -4,7 +4,7 @@ import { randomColor } from '../../../utils/common';
 import { colorLogo } from '../../../utils/color';
 import { device } from '../../../utils/device';
 
-const styles = makeStyles(() => 
+const styles = makeStyles(() =>
   createStyles({
     profile: {
       cursor: 'pointer',

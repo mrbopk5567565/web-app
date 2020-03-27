@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { randomColor } from '../../../utils/common';
 import { colorLogo } from '../../../utils/color'
 
-const styles = makeStyles(() => 
+const styles = makeStyles(() =>
   createStyles({
     profile: {
       cursor: 'pointer',
       display: 'flex',
       position: "relative",
       alignItems: 'center',
-      width: 'calc(100%/2 - 10px)',
+      width: '550px',
       padding: '20px 10px',
       border: `1px solid #00cec9`,
       borderRadius: '5px',
