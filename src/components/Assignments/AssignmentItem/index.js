@@ -24,7 +24,7 @@ const AssignmentItem = (props) => {
   const [weeks, setWeeks] = useState(0)
   const [question, setQuestion] = useState(props.item.question)
   const [description, setDescription] = useState(props.item.description)
-  const [id_assignment] = useState(props.item.id)
+  // const [id_assignment] = useState(props.item.id)
   const [errors, setErrors] = useState(false)
 
   const handleClickOpenEdit = () => {
@@ -57,7 +57,8 @@ const AssignmentItem = (props) => {
       if (weeks !== 0) {
         profile.append('weeks', weeks)
       }
-      props.dispatch({ type: assignmentsConstants.EDIT_ASSIGNMENTS_REQUEST, profile, id_assignment })
+      const id_assignment_edit = props.item.id
+      props.dispatch({ type: assignmentsConstants.EDIT_ASSIGNMENTS_REQUEST, profile, id_assignment_edit })
       setErrors(false);
       setOpenEdit(false);
     } else {
@@ -67,7 +68,6 @@ const AssignmentItem = (props) => {
 
   const handleDeleteData = () => {
     const id_assignment_detele = props.item.id
-    console.log('id_assignment', id_assignment_detele)
     props.dispatch({ type: assignmentsConstants.DELETE_ASSIGNMENT_REQUEST, id_assignment_detele })
     setOpenDetele(false);
   }
@@ -132,7 +132,8 @@ const AssignmentItem = (props) => {
               name="question"
               label="Question"
               type="text"
-              value={question}
+              defaultValue={props.item.question}
+              // value={question}
               onChange={handleChange}
               fullWidth
             />
@@ -143,7 +144,8 @@ const AssignmentItem = (props) => {
               id="description"
               label="Description"
               type="text"
-              value={description}
+              defaultValue={props.item.description}
+              // value={description}
               onChange={handleChange}
               fullWidth
             />

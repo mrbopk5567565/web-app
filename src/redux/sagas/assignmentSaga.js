@@ -19,6 +19,8 @@ function* onCreateAssignment(action) {
 function* onLoadAssignments(action) {
   try {
     const assignments = yield call(LoadAssignment, action.page);
+    assignments.data.sort((a, b) => b.id - a.id)
+    // console.log('assignments', assignments)
     yield put({ type: assignmentsConstants.LOAD_ASSIGNMENTS_SUCCESS, payload: assignments });
   } catch (error) {
     console.log(error)
@@ -27,8 +29,8 @@ function* onLoadAssignments(action) {
 
 function* onEditAssignment(action) {
   try {
-    const status = yield call(EditAssignment, action.id_assignment, action.profile)
-    const data_id_assignment = yield call(LoadIdAssignment, action.id_assignment)
+    const status = yield call(EditAssignment, action.id_assignment_edit, action.profile)
+    const data_id_assignment = yield call(LoadIdAssignment, action.id_assignment_edit)
     yield put({ type: assignmentsConstants.EDIT_ASSIGNMENTS_SUCCESS, payload: status, data_id_assignment })
   } catch (error) {
     console.log(error)

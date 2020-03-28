@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { LOAD_USER_DETAIL_REQUEST } from '../../../redux/constants/userConstants'
@@ -13,7 +13,10 @@ import {
   Button,
 } from '@material-ui/core';
 import * as colors from '../../../utils/color';
-import { CREATE_ASSIGNMENT_REQUEST } from '../../../redux/constants/assignmentsConstants'
+import {
+  CREATE_ASSIGNMENT_REQUEST,
+  LOAD_ASSIGNMENTS_REQUEST
+} from '../../../redux/constants/assignmentsConstants'
 
 
 const CreateAssignment = (props) => {
@@ -23,8 +26,10 @@ const CreateAssignment = (props) => {
   const [weeks, setWeeks] = useState(0)
   const [question, setQuestion] = useState('')
   const [description, setDescription] = useState('')
-  const [errors, setErrors] = useState(false)
+  const [errors, setErrors] = useState(false);
+  const [page] = useState(0)
   useEffect(() => {
+    // Show Hello name: 
     props.dispatch({ type: LOAD_USER_DETAIL_REQUEST })
   }, [])
   const handleClickOpen = () => {
@@ -36,7 +41,7 @@ const CreateAssignment = (props) => {
   };
 
   const handleSubmitData = () => {
-    if (question !== '') {
+    if (question !== '' && description !== '') {
       const profile = new FormData();
       profile.append('question', question)
       profile.append('description', description)
@@ -50,6 +55,7 @@ const CreateAssignment = (props) => {
         profile.append('weeks', weeks)
       }
       props.dispatch({ type: CREATE_ASSIGNMENT_REQUEST, profile })
+      props.dispatch({ type: LOAD_ASSIGNMENTS_REQUEST, page })
       setErrors(false);
       setOpen(false);
     } else {
