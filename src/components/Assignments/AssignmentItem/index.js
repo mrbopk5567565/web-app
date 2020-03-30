@@ -7,6 +7,7 @@ import * as assignmentsConstants from '../../../redux/constants/assignmentsConst
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
+import AnswersAssignment from '../AnswersAssignment';
 import {
   Dialog,
   DialogActions,
@@ -26,6 +27,9 @@ const AssignmentItem = (props) => {
   const [description, setDescription] = useState(props.item.description)
   // const [id_assignment] = useState(props.item.id)
   const [errors, setErrors] = useState(false)
+  useEffect(() => {
+    props.dispatch({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, id_assignment: props.item.id })
+  }, [])
 
   const handleClickOpenEdit = () => {
     setOpenEdit(true);
@@ -94,24 +98,36 @@ const AssignmentItem = (props) => {
     }
   }
 
+  if (props.answers_assignment.data != undefined) {
+    console.log('sdaf', props.answers_assignment.data)
+  }
+
+
   return (
     <React.Fragment>
       <Wrapper>
-        <span onClick={handleClickOpenEdit}><EditIcon /></span>
-        <span className="detele" onClick={handleClickOpenDetele}><DeleteIcon /></span>
-        <Id>
-          <p>{`#${props.item.id}`}</p>
-        </Id>
-        <Question>
-          <div className="question">{props.item.question}</div>
-          <InfoQuestion>
-            <p>{`Estimation: ${props.item.estimation}`}</p>
-            <p>{`Team: ${props.item.team}`}</p>
-          </InfoQuestion>
-          <Description>
-            {`Description: ${props.item.description}`}
-          </Description>
-        </Question>
+        <WrapperAssingment>
+          <span onClick={handleClickOpenEdit}><EditIcon /></span>
+          <span className="detele" onClick={handleClickOpenDetele}><DeleteIcon /></span>
+          <Id>
+            <p>{`#${props.item.id}`}</p>
+          </Id>
+          <Question>
+            <div className="question">{props.item.question}</div>
+            <InfoQuestion>
+              <p>{`Estimation: ${props.item.estimation}`}</p>
+              <p>{`Team: ${props.item.team}`}</p>
+            </InfoQuestion>
+            <Description>
+              {`Description: ${props.item.description}`}
+            </Description>
+          </Question>
+          <WrapperAnswers>
+            <AnswersAssignment
+              id_assignment={props.item.id}
+            />
+          </WrapperAnswers>
+        </WrapperAssingment>
       </Wrapper>
 
       {/* Dialog Edit*/}
@@ -210,12 +226,14 @@ const AssignmentItem = (props) => {
 const mapStateToProps = (state) => {
   return {
     status: state.assignment.status,
+    answers_assignment: state.assignment.answers_assignment,
   }
 }
 
 export default connect(mapStateToProps)(AssignmentItem);
 
-const Wrapper = styled.div`
+const Wrapper = styled.div``;
+const WrapperAssingment = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 0 0 10px 0;
@@ -327,6 +345,11 @@ const Errors = styled.p`
     border-radius: 3px;
   }
 `
+const WrapperAnswers = styled.div`
+  border-top: 1px solid #2271dd;
+  width: 100%;
+  margin-top: 10px;
+`;
 
 const dataSelect = [
   {

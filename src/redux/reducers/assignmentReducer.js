@@ -5,6 +5,7 @@ const initialState = {
   assignments: {},
   status: {},
   id_assignment: {},
+  answers_assignment: [],
 }
 
 const assignmentReducer = (state = initialState, action) =>
@@ -30,6 +31,9 @@ const assignmentReducer = (state = initialState, action) =>
         newState.status = action.payload;
         const assignments_new_detele = state.assignments.data.filter(item => item.id !== action.data_id_assignment.id)
         newState.assignments.data = assignments_new_detele;
+        break;
+      case assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS:
+        newState.answers_assignment = action.payload;
         break;
       default:
         return newState;

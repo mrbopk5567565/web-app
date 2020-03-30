@@ -3,6 +3,8 @@ let JwtToken = localStorage.token;
 axios.defaults.headers.common[`Authorization`] = JwtToken;
 axios.defaults.baseURL = "http://172.104.171.131";
 
+let data = [];
+
 export const CreateAssignment = async (profile) => {
   const res = await axios.post('/api/v1/assignments/create_assignment', profile)
   return res.data;
@@ -26,4 +28,15 @@ export const LoadIdAssignment = async (id_assingment) => {
 export const DeleteAssignment = async (id_assingment) => {
   const res = await axios.delete(`/api/v1/assignments/${id_assingment}`)
   return res.data;
+}
+
+export const LoadAnswersAssignment = async (id_assingment) => {
+  const res = await axios.get(`/api/v1/answers/assignment/${id_assingment}`);
+  // console.log('res', res.data)
+
+  await data.push(res.data.data)
+
+  // await console.log('asdsdfasdf', data)
+  return data;
+  // return res.data;
 }

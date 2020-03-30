@@ -3,11 +3,11 @@ import produce from 'immer'
 
 const initialState = {
   user: [],
-  errors: [],
+  errors: '',
   confirm_email: [],
   mentors: [],
   user_detail: [],
-  // loggedIn: false,
+  loggedIn: false,
 }
 
 const userReducer = (state = initialState, action) =>
@@ -30,7 +30,7 @@ const userReducer = (state = initialState, action) =>
       case userConstants.UPDATE_USER_DETAIL_SUCCESS:
         newState.user_detail = action.payload;
         break;
-      
+
       // get name mentors
       case userConstants.LOAD_MENTORS_NAME_SUCCESS:
         newState.mentors = action.payload;
@@ -47,7 +47,7 @@ const userReducer = (state = initialState, action) =>
       case userConstants.CONFIRM_EMAIL_SUCCESS:
         newState.confirm_email = action.payload;
         break;
-      
+
       // reset password
       case userConstants.RESET_PASSWORD_SUCCESS:
         newState.user = action.payload;

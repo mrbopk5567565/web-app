@@ -4,7 +4,8 @@ import {
   LoadAssignment,
   EditAssignment,
   LoadIdAssignment,
-  DeleteAssignment
+  DeleteAssignment,
+  LoadAnswersAssignment,
 } from '../../api/assignmentsApi';
 import * as assignmentsConstants from '../constants/assignmentsConstants'
 
@@ -47,9 +48,20 @@ function* onDeleteAssignment(action) {
   }
 }
 
+function* onLoadAnswersAssignment(action) {
+  try {
+    const answers_assignment = yield call(LoadAnswersAssignment, action.id_assignment)
+    // console.log('answers_assignment', answers_assignment)
+    yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, payload: answers_assignment })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export default function* Assignment() {
   yield takeLatest(assignmentsConstants.CREATE_ASSIGNMENT_REQUEST, onCreateAssignment)
   yield takeLatest(assignmentsConstants.LOAD_ASSIGNMENTS_REQUEST, onLoadAssignments)
   yield takeLatest(assignmentsConstants.EDIT_ASSIGNMENTS_REQUEST, onEditAssignment)
   yield takeLatest(assignmentsConstants.DELETE_ASSIGNMENT_REQUEST, onDeleteAssignment)
+  yield takeLatest(assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, onLoadAnswersAssignment)
 }

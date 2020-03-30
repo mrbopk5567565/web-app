@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import AssignmentItem from '../AssignmentItem';
 import * as assignmentsConstants from '../../../redux/constants/assignmentsConstants';
+import AnswersAssignment from '../AnswersAssignment';
 
 const ShowAssignments = (props) => {
   const [page, setPage] = useState(0);
+  const [assingment_id, setAssingment_id] = useState(-1)
   useEffect(() => {
     props.dispatch({ type: assignmentsConstants.LOAD_ASSIGNMENTS_REQUEST, page })
   }, [])
-
   return (
     <React.Fragment>
       <Wrapper>

@@ -53,7 +53,7 @@ function Login(props) {
             />
             {errors.password && errors.password.type === 'required' && <Errors>This is required 1</Errors>}
             {errors.password && errors.password.type === 'minLength' && <Errors>This is required 2</Errors>}
-            {props.errors.length != 0 && !props.loggedIn ? <Errors>{props.errors}</Errors> : ''}
+            {props.errors !== '' && !props.loggedIn ? <Errors>{props.errors}</Errors> : ''}
             <p className={classes.forgot}>
               <Link className={classes.forgotLink} to="/confirm_email">Forgot Password ?</Link>
             </p>
