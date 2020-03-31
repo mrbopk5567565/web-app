@@ -31,11 +31,16 @@ const Comments = (props) => {
   }
   return (
     <Wrapper>
-      {comment_answer && comment_answer.length !== 0 && comment_answer.map((item, idx) =>
-        <CommentItem key={idx}>
-          <div>{item.content}</div>
-          <IconDetele onClick={() => handleDeteleComment(item)} />
-        </CommentItem>
+      {comment_answer && comment_answer.length !== 0 && comment_answer.map((item, idx) => {
+        if (item.answer_id === props.id_answer) {
+          return (
+            <CommentItem key={idx}>
+              <div>{item.content}</div>
+              <IconDetele onClick={() => handleDeteleComment(item)} />
+            </CommentItem>
+          )
+        }
+      }
       )}
       <input
         id="comment"
