@@ -8,8 +8,8 @@ import {
 
 function* onLoadCommentAnswer(action) {
   try {
-    const comment = yield call(CommentOfAnswer, action.id_answer)
-    yield put({ type: commentConstants.LOAD_COMMENT_ANSWER_SUCCESS, payload: comment, id_answer: action.id_answer })
+    const comment_answer = yield call(CommentOfAnswer, action.id_answer)
+    yield put({ type: commentConstants.LOAD_COMMENT_ANSWER_SUCCESS, payload: comment_answer, id_answer: action.id_answer })
   } catch (error) {
     console.log(error)
   }
@@ -27,7 +27,7 @@ function* onPostCommnet(action) {
 function* onDeteleComment(action) {
   try {
     const comment_id = yield call(DeteleComment, action.id)
-    yield put({ type: commentConstants.DETELE_COMMENT_SUCCESS, payload: comment_id })
+    yield put({ type: commentConstants.DETELE_COMMENT_SUCCESS, payload: comment_id, id_answer: action.id_answer })
   } catch (error) {
     console.log(error)
   }

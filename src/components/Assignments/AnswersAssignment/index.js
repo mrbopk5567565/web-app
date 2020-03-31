@@ -54,32 +54,29 @@ const AnswersAssignment = (props) => {
           />
         </InputAnswer>
       }
-      {answers_assignment && answers_assignment.map((item, idx) => {
-        if (item.answer && item.answer.assignment_id === id_assignment) {
-          return (
-            <WrapperAnswers key={idx}>
-              <Answers>
-                <p>{`#${item.answer.user_id}`}</p>
-                <p className="link">
-                  {item.answer.link}
-                </p>
-              </Answers>
-              <div className="btnComment" onClick={handleShowComment}>Comment</div>
-              {showComment &&
-                < div >
-                  <InputComment>
-                    {
-                      <Comments
-                        id_answer={item.answer.answer_id}
-                      />
-                    }
-                  </InputComment>
-                </div>
-              }
-            </WrapperAnswers>
-          )
-        }
-      })
+      {answers_assignment && answers_assignment[id_assignment] &&
+        answers_assignment[id_assignment].map((item, idx) =>
+          <WrapperAnswers key={idx}>
+            <Answers>
+              <p>{`#${item.user_id}`}</p>
+              <p className="link">
+                {item.link}
+              </p>
+            </Answers>
+            <div className="btnComment" onClick={handleShowComment}>Comment</div>
+            {showComment &&
+              < div >
+                <InputComment>
+                  {
+                    <Comments
+                      id_answer={item.id}
+                    />
+                  }
+                </InputComment>
+              </div>
+            }
+          </WrapperAnswers>
+        )
       }
     </Wrapper >
   )
@@ -87,7 +84,8 @@ const AnswersAssignment = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    answers_assignment: state.assignment.assignments.data,
+    // answers_assignment: state.assignment.assignments.data,
+    answers_assignment: state.assignment.answers_assignment,
   }
 }
 
