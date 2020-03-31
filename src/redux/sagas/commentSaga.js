@@ -9,7 +9,7 @@ import {
 function* onLoadCommentAnswer(action) {
   try {
     const comment = yield call(CommentOfAnswer, action.id_answer)
-    yield put({ type: commentConstants.LOAD_COMMENT_ANSWER_SUCCESS, payload: comment })
+    yield put({ type: commentConstants.LOAD_COMMENT_ANSWER_SUCCESS, payload: comment, id_answer: action.id_answer })
   } catch (error) {
     console.log(error)
   }

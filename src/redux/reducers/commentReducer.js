@@ -10,7 +10,19 @@ const commentReducer = (state = initialState, action) =>
   produce(state, newSate => {
     switch (action.type) {
       case commentConstants.LOAD_COMMENT_ANSWER_SUCCESS:
+        // action.payload.map((item) => console.log(item))
         newSate.comment_answer = action.payload;
+        // newSate.comment_answer = [...newSate.comment_answer, ...action.payload.map(item => item)];
+        // return {
+        //   ...newSate,
+        //   comment_answer: [
+        //     ...newSate.comment_answer,
+        //     {
+        //       id: action.id_answer,
+        //       data: action.payload
+        //     }
+        //   ]
+        // }
         break;
       // case commentConstants.POST_COMMENT_SUCCESS:
       //   newSate.message = action.payload;

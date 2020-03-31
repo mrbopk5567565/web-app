@@ -32,11 +32,6 @@ export const DeleteAssignment = async (id_assingment) => {
 
 export const LoadAnswersAssignment = async (id_assingment) => {
   const res = await axios.get(`/api/v1/answers/assignment/${id_assingment}`);
-  // console.log('res', res.data)
-
-  await data.push(res.data.data)
-
-  // await console.log('asdsdfasdf', data)
-  return data;
-  // return res.data;
+  // console.log('asd', res.data.data)
+  return res.data.data;
 }

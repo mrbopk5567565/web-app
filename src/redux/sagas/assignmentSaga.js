@@ -21,8 +21,17 @@ function* onLoadAssignments(action) {
   try {
     const assignments = yield call(LoadAssignment, action.page);
     assignments.data.sort((a, b) => b.id - a.id)
-    // console.log('assignments', assignments)
     yield put({ type: assignmentsConstants.LOAD_ASSIGNMENTS_SUCCESS, payload: assignments });
+    const ids = assignments.data.map(item => item.id)
+    const answer = {};
+
+    for (let id of ids) {
+      const answers_assignment = yield call(LoadAnswersAssignment, id)
+      answer[id] = answers_assignment
+      // yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, answers_assignment: answers_assignment })
+    }
+    yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, answer })
+
   } catch (error) {
     console.log(error)
   }
@@ -51,7 +60,8 @@ function* onDeleteAssignment(action) {
 function* onLoadAnswersAssignment(action) {
   try {
     const answers_assignment = yield call(LoadAnswersAssignment, action.id_assignment)
-    // console.log('answers_assignment', answers_assignment)
+    // const ids = answers_assignment.data.map(item => item.id)
+    console.log('answers_assignment', answers_assignment)
     yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, payload: answers_assignment })
   } catch (error) {
     console.log(error)
@@ -63,5 +73,5 @@ export default function* Assignment() {
   yield takeLatest(assignmentsConstants.LOAD_ASSIGNMENTS_REQUEST, onLoadAssignments)
   yield takeLatest(assignmentsConstants.EDIT_ASSIGNMENTS_REQUEST, onEditAssignment)
   yield takeLatest(assignmentsConstants.DELETE_ASSIGNMENT_REQUEST, onDeleteAssignment)
-  yield takeLatest(assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, onLoadAnswersAssignment)
+  // yield takeLatest(assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, onLoadAnswersAssignment)
 }

@@ -33,7 +33,19 @@ const assignmentReducer = (state = initialState, action) =>
         newState.assignments.data = assignments_new_detele;
         break;
       case assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS:
-        newState.answers_assignment = action.payload;
+        // const test = { ...newState.assignments };
+        // action.answers_assignment.forEach(item => {
+        //   test.data = test.data.map(it => {
+        //     if (!it.answer) it.answer = [];
+        //     if (item.assignment_id === it.id) {
+        //       it.answer.push(item)
+        //     }
+        //     return it
+        //   })
+        // });
+        // newState.assignments.data = test.data;
+
+        newState.answers_assignment = action.answer;
         break;
       default:
         return newState;

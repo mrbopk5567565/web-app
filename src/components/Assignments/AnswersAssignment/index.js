@@ -17,7 +17,7 @@ const AnswersAssignment = (props) => {
   // const onSubmit = (data) => {
   //   console.log('adad', data)
   // }
-  const handleShowComment = () => {
+  const handleShowComment = (id_answer) => {
     setShowComment(!showComment)
   }
   const handleChange = (e) => {
@@ -54,42 +54,40 @@ const AnswersAssignment = (props) => {
           />
         </InputAnswer>
       }
-      {answers_assignment && answers_assignment.length != 0 && answers_assignment.map((item1) =>
-        item1.map((item2, idx2) => {
-          if (item2.assignment_id === id_assignment) {
-            return (
-              <WrapperAnswers key={idx2}>
-                <Answers>
-                  <p>{`#${item2.user_id}`}</p>
-                  <p className="link">
-                    {item2.link}
-                  </p>
-                </Answers>
-                <div className="btnComment" onClick={handleShowComment}>Comment</div>
-                {showComment &&
-                  <div>
-                    <InputComment>
-                      {
-                        <Comments
-                          id_answer={item2.id}
-                        />
-                      }
-                    </InputComment>
-                  </div>
-                }
-              </WrapperAnswers>
-            )
-          }
-        })
-      )}
-
-    </Wrapper>
+      {answers_assignment && answers_assignment.map((item, idx) => {
+        if (item.answer && item.answer.assignment_id === id_assignment) {
+          return (
+            <WrapperAnswers key={idx}>
+              <Answers>
+                <p>{`#${item.answer.user_id}`}</p>
+                <p className="link">
+                  {item.answer.link}
+                </p>
+              </Answers>
+              <div className="btnComment" onClick={handleShowComment}>Comment</div>
+              {showComment &&
+                < div >
+                  <InputComment>
+                    {
+                      <Comments
+                        id_answer={item.answer.answer_id}
+                      />
+                    }
+                  </InputComment>
+                </div>
+              }
+            </WrapperAnswers>
+          )
+        }
+      })
+      }
+    </Wrapper >
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-    answers_assignment: state.assignment.answers_assignment,
+    answers_assignment: state.assignment.assignments.data,
   }
 }
 

@@ -28,7 +28,7 @@ const AssignmentItem = (props) => {
   // const [id_assignment] = useState(props.item.id)
   const [errors, setErrors] = useState(false)
   useEffect(() => {
-    props.dispatch({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, id_assignment: props.item.id })
+    // props.dispatch({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, id_assignment: props.item.id })
   }, [])
 
   const handleClickOpenEdit = () => {
@@ -97,11 +97,6 @@ const AssignmentItem = (props) => {
         break;
     }
   }
-
-  if (props.answers_assignment.data != undefined) {
-    console.log('sdaf', props.answers_assignment.data)
-  }
-
 
   return (
     <React.Fragment>
@@ -226,7 +221,6 @@ const AssignmentItem = (props) => {
 const mapStateToProps = (state) => {
   return {
     status: state.assignment.status,
-    answers_assignment: state.assignment.answers_assignment,
   }
 }
 

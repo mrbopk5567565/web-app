@@ -6,14 +6,19 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const Comments = (props) => {
   const [comment, setComment] = useState('')
-  const { comment_answer } = props;
+  const [showComment, setShowComment] = useState(false)
+  const { comment_answer, id_answer } = props;
 
   useEffect(() => {
-    props.dispatch({ type: commentConstants.LOAD_COMMENT_ANSWER_REQUEST, id_answer: props.id_answer })
+    props.dispatch({ type: commentConstants.LOAD_COMMENT_ANSWER_REQUEST, id_answer: id_answer })
   }, [comment])
 
-  const handleDeteleComment = (item) => {
-    props.dispatch({ type: commentConstants.DETELE_COMMENT_REQUEST, id: item.id })
+  const handleShowComment = () => {
+    setShowComment(!showComment)
+  }
+
+  const handleDeteleComment = (itemData) => {
+    props.dispatch({ type: commentConstants.DETELE_COMMENT_REQUEST, id: itemData.id })
   }
 
   const handleChangeComment = (e) => {
@@ -29,8 +34,20 @@ const Comments = (props) => {
       setComment('')
     }
   }
+  // console.log('1', comment_answer.map(item => item.data.map(item2 => console.log(item2.content))))
   return (
     <Wrapper>
+      {/* <div className="btnComment" onClick={handleShowComment}>Comment</div> */}
+      {/* {comment_answer && comment_answer.map(item => {
+        if (item.id === id_answer) {
+          item.data.map((itemData, idx) =>
+            <CommentItem key={idx}>
+              <div>{itemData.content}</div>
+              <IconDetele onClick={() => handleDeteleComment(itemData)} />
+            </CommentItem>
+          )
+        }
+      })} */}
       {comment_answer && comment_answer.length !== 0 && comment_answer.map((item, idx) => {
         if (item.answer_id === props.id_answer) {
           return (
@@ -40,8 +57,7 @@ const Comments = (props) => {
             </CommentItem>
           )
         }
-      }
-      )}
+      })}
       <input
         id="comment"
         name="comment"
