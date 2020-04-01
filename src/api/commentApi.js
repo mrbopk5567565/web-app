@@ -5,6 +5,7 @@ axios.defaults.baseURL = "http://172.104.171.131";
 
 export const CommentOfAnswer = async (id_answer) => {
   const res = await axios.get(`/api/v1/comments/answer/${id_answer}`)
+  // console.log(res.data);
   return res.data;
 }
 
@@ -15,5 +16,11 @@ export const PostComment = async (profile) => {
 
 export const DeteleComment = async (id) => {
   const res = await axios.delete(`/api/v1/comments/delete/${id}`)
+
+  return res.data;
+}
+
+export const LoadAllComments = async () => {
+  const res = await axios.get(`/api/v1/comments/comments`)
   return res.data;
 }

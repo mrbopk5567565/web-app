@@ -7,7 +7,9 @@ import {
   DeleteAssignment,
   LoadAnswersAssignment,
 } from '../../api/assignmentsApi';
+import { CommentOfAnswer } from '../../api/commentApi'
 import * as assignmentsConstants from '../constants/assignmentsConstants'
+import * as commentConstants from '../constants/commentConstants'
 
 function* onCreateAssignment(action) {
   try {
@@ -24,13 +26,19 @@ function* onLoadAssignments(action) {
     yield put({ type: assignmentsConstants.LOAD_ASSIGNMENTS_SUCCESS, payload: assignments });
     const ids = assignments.data.map(item => item.id)
     const answer = {};
+    // const comments = {}; 
 
     for (let id of ids) {
       const answers_assignment = yield call(LoadAnswersAssignment, id)
       answer[id] = answers_assignment
+      // for (let ans of answers_assignment) {
+      //   const comment = yield call(CommentOfAnswer, ans.id)
+      //   comments[ans.id] = comment;
+      // }
       // yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, answers_assignment: answers_assignment })
     }
     yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, answer })
+    // yield put({ type: commentConstants.LOAD_COMMENT_ANSWER_SUCCESS, comments })
 
   } catch (error) {
     console.log(error)

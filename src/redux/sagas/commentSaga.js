@@ -3,13 +3,24 @@ import * as commentConstants from '../constants/commentConstants';
 import {
   CommentOfAnswer,
   PostComment,
-  DeteleComment
+  DeteleComment,
+  LoadAllComments
 } from '../../api/commentApi'
 
 function* onLoadCommentAnswer(action) {
+
   try {
     const comment_answer = yield call(CommentOfAnswer, action.id_answer)
     yield put({ type: commentConstants.LOAD_COMMENT_ANSWER_SUCCESS, payload: comment_answer, id_answer: action.id_answer })
+
+    // const all_comments = yield call(LoadAllComments)
+    // const id_answers = all_comments.map(item => item.answer_id)
+    // const comment = {}
+    // for (let id of id_answers) {
+    //   const comment_answer = yield call(CommentOfAnswer, id)
+    //   comment[id] = comment_answer
+    // }
+    // yield put({ type: commentConstants.LOAD_COMMENT_ANSWER_SUCCESS, payload: comment })
   } catch (error) {
     console.log(error)
   }
@@ -17,8 +28,9 @@ function* onLoadCommentAnswer(action) {
 
 function* onPostCommnet(action) {
   try {
-    const message = yield call(PostComment, action.profile)
-    // yield put({ type: commentConstants.POST_COMMENT_SUCCESS, payload: message })
+    const post_comment = yield call(PostComment, action.profile)
+    console.log('post comment', post_comment)
+    yield put({ type: commentConstants.POST_COMMENT_SUCCESS, payload: post_comment })
   } catch (error) {
     console.log(error)
   }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as commentConstants from '../../../redux/constants/commentConstants';
 import styled from 'styled-components';
@@ -7,13 +7,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 const Comments = (props) => {
   const [comment, setComment] = useState('')
   const [showComment, setShowComment] = useState(false)
-  const { comment_answer, id_answer } = props;
+  const { comment_answer, id_answer, loading } = props;
 
-  useEffect(() => {
-    props.dispatch({ type: commentConstants.LOAD_COMMENT_ANSWER_REQUEST, id_answer: id_answer })
-  }, [comment])
+  // useEffect(() => {
+  //   // props.dispatch({ type: commentConstants.LOAD_COMMENT_ANSWER_REQUEST, id_answer: id_answer })
+  // }, [comment, showComment])
 
   const handleShowComment = () => {
+    props.dispatch({ type: commentConstants.LOAD_COMMENT_ANSWER_REQUEST, id_answer: id_answer })
     setShowComment(!showComment)
   }
 
@@ -37,24 +38,33 @@ const Comments = (props) => {
 
   return (
     <Wrapper>
-      {/* <div className="btnComment" onClick={handleShowComment}>Comment</div> */}
-      {comment_answer && comment_answer[id_answer] &&
-        comment_answer[id_answer].map((item, idx) =>
-          <CommentItem key={idx}>
-            <div>{item.content}</div>
-            <IconDetele onClick={() => handleDeteleComment(item, id_answer)} />
-          </CommentItem>
+      <div className="btnComment" onClick={handleShowComment}>Comment</div>
+
+      {comment_answer && comment_answer[id_answer] && showComment &&
+        comment_answer[id_answer].map((item, idx) => {
+          if (id_answer === item.answer_id) {
+            return (
+              <CommentItem key={idx}>
+                <div>{item.content}</div>
+                <IconDetele onClick={() => handleDeteleComment(item, id_answer)} />
+              </CommentItem>
+            )
+          }
+        }
         )
       }
-      <input
-        id="comment"
-        name="comment"
-        placeholder="comment ..."
-        type="text"
-        onKeyDown={keyPress}
-        onChange={handleChangeComment}
-        value={comment}
-      />
+      {loading && showComment && <div>loading...</div>}
+      {showComment &&
+        <input
+          id="comment"
+          name="comment"
+          placeholder="comment ..."
+          type="text"
+          onKeyDown={keyPress}
+          onChange={handleChangeComment}
+          value={comment}
+        />
+      }
     </Wrapper>
   )
 }
@@ -62,6 +72,7 @@ const Comments = (props) => {
 const mapStateToProps = (state) => {
   return {
     comment_answer: state.comment.comment_answer,
+    loading: state.comment.loading
   }
 }
 

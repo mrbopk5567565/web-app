@@ -27,9 +27,9 @@ const AssignmentItem = (props) => {
   const [description, setDescription] = useState(props.item.description)
   // const [id_assignment] = useState(props.item.id)
   const [errors, setErrors] = useState(false)
-  useEffect(() => {
-    // props.dispatch({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, id_assignment: props.item.id })
-  }, [])
+  // useEffect(() => {
+  //   props.dispatch({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, id_assignment: props.item.id })
+  // }, [])
 
   const handleClickOpenEdit = () => {
     setOpenEdit(true);

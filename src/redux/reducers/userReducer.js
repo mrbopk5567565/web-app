@@ -2,7 +2,7 @@ import * as userConstants from '../constants/userConstants';
 import produce from 'immer'
 
 const initialState = {
-  user: [],
+  user: {},
   errors: '',
   confirm_email: [],
   mentors: [],

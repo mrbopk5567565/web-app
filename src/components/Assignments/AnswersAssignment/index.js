@@ -11,15 +11,17 @@ const AnswersAssignment = (props) => {
   const [showComment, setShowComment] = useState(false)
   const [answer, setAnswer] = useState('')
 
+
+
   // const { handleSubmit } = useForm()
 
   // const [id_user, setId_user] = useState(0);
   // const onSubmit = (data) => {
   //   console.log('adad', data)
   // }
-  const handleShowComment = (id_answer) => {
-    setShowComment(!showComment)
-  }
+  // const handleShowComment = () => {
+  //   setShowComment(!showComment)
+  // }
   const handleChange = (e) => {
     switch (e.target.name) {
       case 'answer':
@@ -41,7 +43,7 @@ const AnswersAssignment = (props) => {
 
   return (
     <Wrapper>
-      {role === "mentor" &&
+      {role === "intern" &&
         <InputAnswer>
           <label htmlFor="answer">Answers: </label>
           <input
@@ -63,8 +65,17 @@ const AnswersAssignment = (props) => {
                 {item.link}
               </p>
             </Answers>
-            <div className="btnComment" onClick={handleShowComment}>Comment</div>
-            {showComment &&
+            {/* <div className="btnComment" onClick={handleShowComment}>Comment</div> */}
+
+            <InputComment>
+              {
+                <Comments
+                  id_answer={item.id}
+                />
+              }
+            </InputComment>
+
+            {/* {showComment &&
               < div >
                 <InputComment>
                   {
@@ -74,7 +85,7 @@ const AnswersAssignment = (props) => {
                   }
                 </InputComment>
               </div>
-            }
+            } */}
           </WrapperAnswers>
         )
       }
