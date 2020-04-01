@@ -4,6 +4,7 @@ import internReducer from './internReducer';
 import mentorReducer from './mentorReducer';
 import assignmentReducer from './assignmentReducer';
 import commentReducer from './commentReducer';
+import answerReducer from './answerReducer';
 
 export default combineReducers({
   user: userReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   mentor: mentorReducer,
   assignment: assignmentReducer,
   comment: commentReducer,
+  answer: answerReducer,
 })

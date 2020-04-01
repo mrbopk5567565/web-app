@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as commentConstants from '../../../redux/constants/commentConstants';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CachedIcon from '@material-ui/icons/Cached';
 
 const Comments = (props) => {
-  const [comment, setComment] = useState('')
+  // const [comment, setComment] = useState('')
   const [showComment, setShowComment] = useState(false)
   const { comment_answer, id_answer, loading } = props;
 
@@ -22,9 +23,9 @@ const Comments = (props) => {
     props.dispatch({ type: commentConstants.DETELE_COMMENT_REQUEST, id: item.id, id_answer })
   }
 
-  const handleChangeComment = (e) => {
-    setComment(e.target.value)
-  }
+  // const handleChangeComment = (e) => {
+  //   setComment(e.target.value)
+  // }
 
   const keyPress = (e) => {
     if (e.keyCode == 13) {
@@ -32,7 +33,7 @@ const Comments = (props) => {
       profile.append('content', e.target.value)
       profile.append('answer_id', props.id_answer)
       props.dispatch({ type: commentConstants.POST_COMMENT_REQUEST, profile })
-      setComment('')
+      e.target.value = ''
     }
   }
 
@@ -45,6 +46,7 @@ const Comments = (props) => {
           if (id_answer === item.answer_id) {
             return (
               <CommentItem key={idx}>
+                <div className="user">{`user id: #${item.user_id}`}</div>
                 <div>{item.content}</div>
                 <IconDetele onClick={() => handleDeteleComment(item, id_answer)} />
               </CommentItem>
@@ -53,7 +55,7 @@ const Comments = (props) => {
         }
         )
       }
-      {loading && showComment && <div>loading...</div>}
+      {loading && showComment && <LoadingIcon />}
       {showComment &&
         <input
           id="comment"
@@ -61,8 +63,8 @@ const Comments = (props) => {
           placeholder="comment ..."
           type="text"
           onKeyDown={keyPress}
-          onChange={handleChangeComment}
-          value={comment}
+        // onChange={handleChangeComment}
+        // value={comment}
         />
       }
     </Wrapper>
@@ -72,7 +74,7 @@ const Comments = (props) => {
 const mapStateToProps = (state) => {
   return {
     comment_answer: state.comment.comment_answer,
-    loading: state.comment.loading
+    loading: state.comment.loading,
   }
 }
 
@@ -90,13 +92,23 @@ const Wrapper = styled.div`
 `;
 const CommentItem = styled.div`
   position: relative;
-  div {
-    border: 1px solid #2271dd;
-    padding: 5px 10px;
-    background: white;
-    border-radius: 5px;
-    font-size: 14px;
+  border: 1px solid #2271dd;
+  padding: 5px 10px;
+  background: white;
+  border-radius: 5px;
+  font-size: 14px;
+  margin: 0 0 5px 0;
+  .user {
+    border-bottom: 0.5px solid black;
     margin: 0 0 5px 0;
+  }
+  /* .mentor {
+    border-bottom: 0.5px solid black;
+    margin: 0 0 5px 0;
+    color: red;
+  } */
+  div {
+    
   }
 `;
 const IconDetele = styled(DeleteIcon)`
@@ -105,4 +117,23 @@ const IconDetele = styled(DeleteIcon)`
   right: -30px;
   transform: translate(0 , -50%);
   cursor: pointer;
+  &:hover{
+    color: red;
+  }
 `;
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`
+
+const LoadingIcon = styled(CachedIcon)`
+  color: #2271dd;
+  animation: ${rotate} 2s linear infinite;
+`;
+

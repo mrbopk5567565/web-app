@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import * as assignmentsConstants from '../../../redux/constants/assignmentsConstants';
+// import * as answerConstants from '../../../redux/constants/answerConstants';
 // import imageDefault from '../../../images/no_image.jpg';
 // import { domain } from '../../../utils/common';
 import EditIcon from '@material-ui/icons/Edit';
@@ -27,9 +28,10 @@ const AssignmentItem = (props) => {
   const [description, setDescription] = useState(props.item.description)
   // const [id_assignment] = useState(props.item.id)
   const [errors, setErrors] = useState(false)
-  // useEffect(() => {
-  //   props.dispatch({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, id_assignment: props.item.id })
-  // }, [])
+  useEffect(() => {
+    // props.dispatch({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, id_assignment: props.item.id })
+    // props.dispatch({ type: answerConstants.LOAD_ANSWER_REQUEST })
+  }, [])
 
   const handleClickOpenEdit = () => {
     setOpenEdit(true);

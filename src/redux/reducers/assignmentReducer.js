@@ -35,6 +35,10 @@ const assignmentReducer = (state = initialState, action) =>
       case assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS:
         newState.answers_assignment = action.answer;
         break;
+      case assignmentsConstants.DELETE_ANSWER_MENTOR_SUCCESS:
+        const answers_assignment_new = newState.answers_assignment[action.id_assignment].filter(item => item.id !== action.id_answer)
+        newState.answers_assignment = { ...newState.answers_assignment, [action.id_assignment]: answers_assignment_new };
+        break;
       default:
         return newState;
     }

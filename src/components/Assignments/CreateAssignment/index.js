@@ -27,6 +27,7 @@ const CreateAssignment = (props) => {
   const [question, setQuestion] = useState('')
   const [description, setDescription] = useState('')
   const [errors, setErrors] = useState(false);
+  const [role] = useState(localStorage.getItem('role'))
   const [page] = useState(0)
   useEffect(() => {
     // Show Hello name: 
@@ -93,7 +94,12 @@ const CreateAssignment = (props) => {
             <img src={props.user.image.url !== null ? `${domain}${props.user.image.url}` : imageDefault} alt="image_personal" />
           }
         </Image>
-        {props.user && <p>{`Hello ${props.user.name}`}<span>Let's create questions</span></p>}
+        {role === "intern" && props.user &&
+          <p>{`Hello ${props.user.name}`}<span>Let's answer questions</span></p>
+        }
+        {role === "mentor" && props.user &&
+          <p>{`Hello ${props.user.name}`}<span>Let's create questions</span></p>
+        }
       </Wrapper>
 
       {/* Dialog */}
@@ -187,15 +193,15 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     position: relative;
-    &::after {
+    /* &::after {
       content: ':)';
       position: absolute;
       top: 50%;
       left: 33%;
       transform: translate(0, -50%) rotate(90deg);
-    }
+    } */
     span {
-      margin-left: 30px;
+      margin-left: 5px;
       padding: 8px;
       border: 1px solid #2271dd;
       border-radius: 16px;

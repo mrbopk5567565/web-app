@@ -7,6 +7,7 @@ import {
   DeleteAssignment,
   LoadAnswersAssignment,
 } from '../../api/assignmentsApi';
+import { DeleteAnswer } from '../../api/answerApi'
 import { CommentOfAnswer } from '../../api/commentApi'
 import * as assignmentsConstants from '../constants/assignmentsConstants'
 import * as commentConstants from '../constants/commentConstants'
@@ -76,10 +77,24 @@ function* onLoadAnswersAssignment(action) {
   }
 }
 
+function* onDeteleAnswer(action) {
+  try {
+    yield call(DeleteAnswer, action.id_answer)
+    yield put({
+      type: assignmentsConstants.DELETE_ANSWER_MENTOR_SUCCESS,
+      id_assignment: action.id_assignment,
+      id_answer: action.id_answer
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export default function* Assignment() {
   yield takeLatest(assignmentsConstants.CREATE_ASSIGNMENT_REQUEST, onCreateAssignment)
   yield takeLatest(assignmentsConstants.LOAD_ASSIGNMENTS_REQUEST, onLoadAssignments)
   yield takeLatest(assignmentsConstants.EDIT_ASSIGNMENTS_REQUEST, onEditAssignment)
   yield takeLatest(assignmentsConstants.DELETE_ASSIGNMENT_REQUEST, onDeleteAssignment)
   // yield takeLatest(assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, onLoadAnswersAssignment)
+  yield takeLatest(assignmentsConstants.DELETE_ANSWER_MENTOR_REQUEST, onDeteleAnswer)
 }

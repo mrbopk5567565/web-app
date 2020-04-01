@@ -29,7 +29,6 @@ function* onLoadCommentAnswer(action) {
 function* onPostCommnet(action) {
   try {
     const post_comment = yield call(PostComment, action.profile)
-    console.log('post comment', post_comment)
     yield put({ type: commentConstants.POST_COMMENT_SUCCESS, payload: post_comment })
   } catch (error) {
     console.log(error)

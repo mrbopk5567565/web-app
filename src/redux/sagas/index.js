@@ -3,7 +3,8 @@ import Login from '../sagas/userSaga';
 import Interns from '../sagas/internsSaga';
 import Mentor from './mentorSaga';
 import Assignment from './assignmentSaga';
-import Comment from './commentSaga'
+import Comment from './commentSaga';
+import Answer from './answerSaga'
 
 export default function* rootSaga() {
   yield all([
@@ -12,5 +13,6 @@ export default function* rootSaga() {
     Mentor(),
     Assignment(),
     Comment(),
+    Answer(),
   ])
 }

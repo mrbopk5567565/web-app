@@ -172,7 +172,7 @@ function Menu(props) {
         <div className={classes.drawerHeader} />
         {role === "intern-home" &&
           <Switch>
-            <Route path={`/${role}/assignments`} component={Assignments} />
+            <Route exact path={`/${role}/assignments`} component={Assignments} />
             {/* <Route path={`/${role}/assignments`} component={Discuss} /> */}
             <Route path={`/${role}/profile`} component={Profile} />
             <Route path={`/${role}/mentor`} component={Mentor} />
