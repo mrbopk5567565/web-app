@@ -34,7 +34,9 @@ const CreateAssignment = (props) => {
     props.dispatch({ type: LOAD_USER_DETAIL_REQUEST })
   }, [])
   const handleClickOpen = () => {
-    setOpen(true);
+    if (role === 'mentor') {
+      setOpen(true);
+    }
   };
 
   const handleClose = () => {
