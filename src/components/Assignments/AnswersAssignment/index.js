@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import Comments from '../Comments';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import InputEditAnswer from './EditAnswer'
 import {
   Dialog,
   DialogActions,
@@ -21,28 +22,9 @@ const AnswersAssignment = (props) => {
   const [answer_id, setAnswer_id] = useState(0);
   const [openDeteleIntern, setOpenDeteleIntern] = useState(false);
   const [openDeteleMentor, setOpenDeteleMentor] = useState(false);
-  // const [answer, setAnswer] = useState('')
 
-  // const { handleSubmit } = useForm()
-
-  // const [id_user, setId_user] = useState(0);
-  // const onSubmit = (data) => {
-  //   console.log('adad', data)
-  // }
-  // const handleShowComment = () => {
-  //   setShowComment(!showComment)
-  // }
-  // const handleChange = (e) => {
-  //   switch (e.target.name) {
-  //     case 'answer':
-  //       setAnswer(e.target.value);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // }
-
-  const keyPress = (e) => {
+  // Create Answer
+  const keyPressCreateAnwer = (e) => {
     if (e.keyCode == 13) {
       const profile = new FormData();
       profile.append('link', e.target.value)
@@ -99,7 +81,7 @@ const AnswersAssignment = (props) => {
             placeholder="answer ..."
             type="text"
             // onChange={handleChange}
-            onKeyDown={keyPress}
+            onKeyDown={keyPressCreateAnwer}
           />
         </InputAnswer>
       }
@@ -136,8 +118,12 @@ const AnswersAssignment = (props) => {
                 <p className="link">
                   {item.link}
                 </p>
-                <IconEdit />
+                {/* <IconEdit onClick={() => handleEditAnswer(item)} /> */}
                 <IconDelete onClick={() => handleOpenDeleteAnswerIntern(item)} />
+                <InputEditAnswer
+                  id_answer={item.id}
+                  link={item.link}
+                />
               </Answers>
               <InputComment>
                 {
@@ -262,7 +248,7 @@ const IconEdit = styled(EditIcon)`
   &:hover{
     color: #2271dd;
   };
-  `;
+`;
 const IconDelete = styled(DeleteIcon)`
   position: absolute;
   font-size: 14px;

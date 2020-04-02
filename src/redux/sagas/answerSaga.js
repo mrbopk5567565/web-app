@@ -4,7 +4,8 @@ import * as assignmentsConstants from '../constants/assignmentsConstants';
 import {
   CreateAnswer,
   LoadAnswer,
-  DeleteAnswer
+  DeleteAnswer,
+  EditAnswer,
 } from '../../api/answerApi';
 
 function* onCreateAnswer(action) {
@@ -34,8 +35,23 @@ function* onDeteleAnswer(action) {
   }
 }
 
+function* onEditAnswer(action) {
+  try {
+    const message = yield call(EditAnswer, action.profile, action.id_answer)
+    yield put({
+      type: answerConstants.EDIT_ANSWER_SUCCESS,
+      payload: message,
+      id_answer: action.id_answer,
+      link: action.link,
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export default function* Answer() {
   yield takeLatest(answerConstants.CREATE_ANSWER_REQUEST, onCreateAnswer)
   yield takeLatest(answerConstants.LOAD_ANSWER_REQUEST, onLoadAnswer)
   yield takeLatest(answerConstants.DELETE_ANSWER_REQUEST, onDeteleAnswer)
+  yield takeLatest(answerConstants.EDIT_ANSWER_REQUEST, onEditAnswer)
 }

@@ -4,7 +4,7 @@ import produce from 'immer';
 const initialState = {
   answer_created: {},
   answers: [],
-  massage: '',
+  message: '',
 }
 
 const answerReducer = (state = initialState, action) =>
@@ -18,9 +18,19 @@ const answerReducer = (state = initialState, action) =>
         newState.answers = action.payload;
         break;
       case answerConstants.DELETE_ANSWER_SUCCESS:
-        newState.massage = action.payload;
+        newState.message = action.payload;
         const answers_new = newState.answers.filter(item => item.id !== action.id_answer);
         newState.answers = answers_new;
+        break;
+      case answerConstants.EDIT_ANSWER_SUCCESS:
+        newState.message = action.payload;
+        const answers_new_edit = newState.answers.map(item => {
+          if (item.id === action.id_answer) {
+            item.link = action.link;
+          }
+          return item;
+        })
+        newState.answers = answers_new_edit;
         break;
       default:
         return newState;

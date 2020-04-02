@@ -17,3 +17,9 @@ export const DeleteAnswer = async (id_answer) => {
   const res = await axios.delete(`/api/v1/answers/${id_answer}`)
   return res;
 }
+
+export const EditAnswer = async (profile, id_answer) => {
+  const res = await axios.put(`/api/v1/answers/${id_answer}`, profile)
+  console.log('res', res)
+  return res.data;
+}

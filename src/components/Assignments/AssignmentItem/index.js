@@ -26,6 +26,7 @@ const AssignmentItem = (props) => {
   const [weeks, setWeeks] = useState(0)
   const [question, setQuestion] = useState(props.item.question)
   const [description, setDescription] = useState(props.item.description)
+  const [role] = useState(localStorage.getItem('role'))
   // const [id_assignment] = useState(props.item.id)
   const [errors, setErrors] = useState(false)
   useEffect(() => {
@@ -104,8 +105,12 @@ const AssignmentItem = (props) => {
     <React.Fragment>
       <Wrapper>
         <WrapperAssingment>
-          <span onClick={handleClickOpenEdit}><EditIcon /></span>
-          <span className="detele" onClick={handleClickOpenDetele}><DeleteIcon /></span>
+          {role === 'mentor' &&
+            <span onClick={handleClickOpenEdit}><EditIcon /></span>
+          }
+          {role === 'mentor' &&
+            <span className="detele" onClick={handleClickOpenDetele}><DeleteIcon /></span>
+          }
           <Id>
             <p>{`#${props.item.id}`}</p>
           </Id>
