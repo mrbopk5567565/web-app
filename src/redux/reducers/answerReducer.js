@@ -12,7 +12,8 @@ const answerReducer = (state = initialState, action) =>
     switch (action.type) {
       case answerConstants.CREATE_ANSWER_SUCCESS:
         newState.answer_created = action.payload;
-        newState.answers = [...newState.answers, action.payload]
+        // newState.answers = [...newState.answers, action.payload]
+        newState.answers = [action.payload, ...newState.answers]
         break;
       case answerConstants.LOAD_ANSWER_SUCCESS:
         newState.answers = action.payload;

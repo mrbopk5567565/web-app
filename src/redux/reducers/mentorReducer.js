@@ -16,7 +16,6 @@ const mentorReducer = (state = initialState, action) =>
           loading_page: true,
         }
       case mentorConstants.LOAD_INTERNS_SUCCESS:
-        console.log(action, '123')
         newState.list_interns = action.data_interns;
         newState.intern_detail = action.payload;
         newState.loading_page = false;

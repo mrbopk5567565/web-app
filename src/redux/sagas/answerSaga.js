@@ -20,6 +20,7 @@ function* onCreateAnswer(action) {
 function* onLoadAnswer() {
   try {
     const answers = yield call(LoadAnswer)
+    answers.sort((a, b) => b.id - a.id)
     yield put({ type: answerConstants.LOAD_ANSWER_SUCCESS, payload: answers })
   } catch (error) {
     console.log(error)

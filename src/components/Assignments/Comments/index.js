@@ -55,7 +55,12 @@ const Comments = (props) => {
         }
         )
       }
-      {loading && showComment && <LoadingIcon />}
+      {loading && showComment &&
+        <WrapperIconLoading>
+          <LoadingIcon />
+        </WrapperIconLoading>
+      }
+
       {showComment &&
         <input
           id="comment"
@@ -115,6 +120,7 @@ const IconDetele = styled(DeleteIcon)`
   position: absolute;
   top: 50%;
   right: -30px;
+  font-size: 14px;
   transform: translate(0 , -50%);
   cursor: pointer;
   &:hover{
@@ -130,7 +136,11 @@ const rotate = keyframes`
   to {
     transform: rotate(360deg);
   }
-`
+`;
+
+const WrapperIconLoading = styled.div`
+  text-align: center;
+`;
 
 const LoadingIcon = styled(CachedIcon)`
   color: #2271dd;
