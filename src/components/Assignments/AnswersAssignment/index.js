@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import * as assignmentsConstants from '../../../redux/constants/assignmentsConstants';
 import * as answerConstants from '../../../redux/constants/answerConstants';
 import styled from 'styled-components';

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import EditIcon from '@material-ui/icons/Edit';
@@ -10,7 +10,7 @@ const EditAnwer = (props) => {
 
   // Edit answer
   const keyPressEdit = (e) => {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
       const profile = new FormData();
       profile.append('link', e.target.value)
       // profile.append('id', id_answer)

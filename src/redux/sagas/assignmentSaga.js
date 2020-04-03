@@ -8,9 +8,7 @@ import {
   LoadAnswersAssignment,
 } from '../../api/assignmentsApi';
 import { DeleteAnswer, Approve } from '../../api/answerApi'
-import { CommentOfAnswer } from '../../api/commentApi'
 import * as assignmentsConstants from '../constants/assignmentsConstants'
-import * as commentConstants from '../constants/commentConstants'
 
 function* onCreateAssignment(action) {
   try {
@@ -36,7 +34,7 @@ function* onLoadAssignments(action) {
     for (let id of ids) {
       const answers_assignment = yield call(LoadAnswersAssignment, id)
       answer[id] = answers_assignment;
-      answer[id].sort((a, b) => b.id - a.id)
+      // answer[id].sort((a, b) => b.id - a.id)
     }
     yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, answer })
   } catch (error) {
@@ -64,16 +62,16 @@ function* onDeleteAssignment(action) {
   }
 }
 
-function* onLoadAnswersAssignment(action) {
-  try {
-    const answers_assignment = yield call(LoadAnswersAssignment, action.id_assignment)
-    // const ids = answers_assignment.data.map(item => item.id)
-    console.log('answers_assignment', answers_assignment)
-    yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, payload: answers_assignment })
-  } catch (error) {
-    console.log(error)
-  }
-}
+// function* onLoadAnswersAssignment(action) {
+//   try {
+//     const answers_assignment = yield call(LoadAnswersAssignment, action.id_assignment)
+//     // const ids = answers_assignment.data.map(item => item.id)
+//     console.log('answers_assignment', answers_assignment)
+//     yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, payload: answers_assignment })
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
 function* onDeteleAnswer(action) {
   try {

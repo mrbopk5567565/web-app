@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles, { InfoItem } from './styles';
 import { connect } from 'react-redux';
 import { domain } from '../../../utils/common';

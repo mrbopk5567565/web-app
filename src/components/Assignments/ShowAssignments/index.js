@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import AssignmentItem from '../AssignmentItem';
@@ -6,7 +6,7 @@ import * as assignmentsConstants from '../../../redux/constants/assignmentsConst
 import * as answerConstants from '../../../redux/constants/answerConstants';
 
 const ShowAssignments = (props) => {
-  const [page, setPage] = useState(0);
+  const [page] = useState(0);
   useEffect(() => {
     props.dispatch({ type: assignmentsConstants.LOAD_ASSIGNMENTS_REQUEST, page })
     props.dispatch({ type: answerConstants.LOAD_ANSWER_REQUEST })
