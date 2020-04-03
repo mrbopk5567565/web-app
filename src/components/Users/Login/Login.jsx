@@ -44,7 +44,7 @@ function Login(props) {
             <TextField
               color="secondary"
               label="password"
-              type="text"
+              type="password"
               name="password"
               id="password"
               variant="outlined"

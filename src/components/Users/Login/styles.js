@@ -2,8 +2,9 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import * as colors from '../../../utils/color';
 import styled from 'styled-components';
 import backgroundLogin from '../../../images/backgroundLogin.png';
+import beach from '../../../images/beach.jpg';
 
-const styles = makeStyles(() => 
+const styles = makeStyles(() =>
   createStyles({
     Login: {
       backgroundImage: `url(${backgroundLogin})`,
@@ -22,6 +23,7 @@ const styles = makeStyles(() =>
       margin: '0 auto',
       padding: '50px',
       borderRadius: '30px',
+      height: '1000px',
     },
     h2: {
       margin: '0 0 30px 0',

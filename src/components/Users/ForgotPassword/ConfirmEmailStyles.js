@@ -22,6 +22,7 @@ export const styles = makeStyles(() =>
       margin: '0 auto',
       padding: '50px',
       borderRadius: '30px',
+      height: '1000px',
     },
     h2: {
       margin: '0 0 30px 0',

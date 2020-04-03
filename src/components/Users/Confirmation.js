@@ -8,8 +8,7 @@ const Confirmation = (props) => {
     const token = props.match.params.token;
     props.dispatch({ type: CONFIRM_USER_REQUEST, token, props })
   })
-  console.log(props)
-  return(
+  return (
     <>
       <h2>
         Confirming
