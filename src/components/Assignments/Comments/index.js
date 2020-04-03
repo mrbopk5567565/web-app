@@ -4,11 +4,13 @@ import * as commentConstants from '../../../redux/constants/commentConstants';
 import styled, { keyframes } from 'styled-components';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CachedIcon from '@material-ui/icons/Cached';
+import Time from '../AnswersAssignment/Time'
 
 const Comments = (props) => {
   // const [comment, setComment] = useState('')
   const [showComment, setShowComment] = useState(false)
-  const { comment_answer, id_answer, loading } = props;
+  const { comment_answer, id_answer, loading, user_id } = props;
+  const [role] = useState(localStorage.getItem('role'))
 
   // useEffect(() => {
   //   // props.dispatch({ type: commentConstants.LOAD_COMMENT_ANSWER_REQUEST, id_answer: id_answer })
@@ -48,7 +50,15 @@ const Comments = (props) => {
               <CommentItem key={idx}>
                 <div className="user">{`user id: #${item.user_id}`}</div>
                 <div>{item.content}</div>
-                <IconDetele onClick={() => handleDeteleComment(item, id_answer)} />
+                {role === "mentor" &&
+                  <IconDetele onClick={() => handleDeteleComment(item, id_answer)} />
+                }
+                {role === "intern" && item.user_id === user_id.id &&
+                  <IconDetele onClick={() => handleDeteleComment(item, id_answer)} />
+                }
+                <Time
+                  time_update={item.updated_at}
+                />
               </CommentItem>
             )
           }
@@ -80,6 +90,7 @@ const mapStateToProps = (state) => {
   return {
     comment_answer: state.comment.comment_answer,
     loading: state.comment.loading,
+    user_id: state.user.user_detail,
   }
 }
 
@@ -102,7 +113,7 @@ const CommentItem = styled.div`
   background: white;
   border-radius: 5px;
   font-size: 14px;
-  margin: 0 0 5px 0;
+  margin: 0 0 25px 0;
   .user {
     border-bottom: 0.5px solid black;
     margin: 0 0 5px 0;

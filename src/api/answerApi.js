@@ -22,3 +22,9 @@ export const EditAnswer = async (profile, id_answer) => {
   const res = await axios.put(`/api/v1/answers/${id_answer}`, profile)
   return res.data;
 }
+
+export const Approve = async (id_answer) => {
+  const res = await axios.put(`/api/v1/answers/${id_answer}/approved`)
+  // console.log('res', res.data)
+  return res.data;
+}

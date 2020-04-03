@@ -7,14 +7,18 @@ import {
   DeleteAssignment,
   LoadAnswersAssignment,
 } from '../../api/assignmentsApi';
-import { DeleteAnswer } from '../../api/answerApi'
+import { DeleteAnswer, Approve } from '../../api/answerApi'
 import { CommentOfAnswer } from '../../api/commentApi'
 import * as assignmentsConstants from '../constants/assignmentsConstants'
 import * as commentConstants from '../constants/commentConstants'
 
 function* onCreateAssignment(action) {
   try {
-    yield call(CreateAssignment, action.profile)
+    const create_assignment = yield call(CreateAssignment, action.profile)
+    yield put({
+      type: assignmentsConstants.CREATE_ASSIGNMENT_SUCCESS,
+      create_assignment: create_assignment.assignment
+    })
   } catch (error) {
     console.log(error)
   }
@@ -31,16 +35,10 @@ function* onLoadAssignments(action) {
 
     for (let id of ids) {
       const answers_assignment = yield call(LoadAnswersAssignment, id)
-      answer[id] = answers_assignment
-      // for (let ans of answers_assignment) {
-      //   const comment = yield call(CommentOfAnswer, ans.id)
-      //   comments[ans.id] = comment;
-      // }
-      // yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, answers_assignment: answers_assignment })
+      answer[id] = answers_assignment;
+      answer[id].sort((a, b) => b.id - a.id)
     }
     yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, answer })
-    // yield put({ type: commentConstants.LOAD_COMMENT_ANSWER_SUCCESS, comments })
-
   } catch (error) {
     console.log(error)
   }
@@ -90,6 +88,20 @@ function* onDeteleAnswer(action) {
   }
 }
 
+function* onApprove(action) {
+  try {
+    const approve = yield call(Approve, action.id_answer)
+    yield put({
+      type: assignmentsConstants.APPROVE_BY_MENTOR_SUCCESS,
+      payload: approve,
+      id_answer: action.id_answer,
+      assignment_id: action.assignment_id,
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export default function* Assignment() {
   yield takeLatest(assignmentsConstants.CREATE_ASSIGNMENT_REQUEST, onCreateAssignment)
   yield takeLatest(assignmentsConstants.LOAD_ASSIGNMENTS_REQUEST, onLoadAssignments)
@@ -97,4 +109,5 @@ export default function* Assignment() {
   yield takeLatest(assignmentsConstants.DELETE_ASSIGNMENT_REQUEST, onDeleteAssignment)
   // yield takeLatest(assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, onLoadAnswersAssignment)
   yield takeLatest(assignmentsConstants.DELETE_ANSWER_MENTOR_REQUEST, onDeteleAnswer)
+  yield takeLatest(assignmentsConstants.APPROVE_BY_MENTOR_REQUEST, onApprove)
 }

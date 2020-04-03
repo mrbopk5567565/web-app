@@ -5,9 +5,11 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 // import { useForm } from 'react-hook-form';
 import Comments from '../Comments';
-import EditIcon from '@material-ui/icons/Edit';
+import moment from 'moment'
 import DeleteIcon from '@material-ui/icons/Delete';
-import InputEditAnswer from './EditAnswer'
+import InputEditAnswer from './EditAnswer';
+import Approve from './Approve';
+import Time from './Time';
 import {
   Dialog,
   DialogActions,
@@ -96,11 +98,20 @@ const AnswersAssignment = (props) => {
                 {item.link}
               </p>
               <IconDelete onClick={() => handleOpenDeleteAnswerMentor(item)} />
+              <Approve
+                id_answer={item.id}
+                approve={item.completed}
+                assignment_id={item.assignment_id}
+              />
+              <Time
+                time_update={item.updated_at}
+              />
             </Answers>
             <InputComment>
               {
                 <Comments
                   id_answer={item.id}
+                  approve={item.completed}
                 />
               }
             </InputComment>
@@ -120,9 +131,16 @@ const AnswersAssignment = (props) => {
                 </p>
                 {/* <IconEdit onClick={() => handleEditAnswer(item)} /> */}
                 <IconDelete onClick={() => handleOpenDeleteAnswerIntern(item)} />
+                <Approve
+                  id_answer={item.id}
+                  approve={item.completed}
+                />
                 <InputEditAnswer
                   id_answer={item.id}
                   link={item.link}
+                />
+                <Time
+                  time_update={item.updated_at}
                 />
               </Answers>
               <InputComment>
@@ -239,16 +257,16 @@ const Answers = styled.div`
   }
 `;
 
-const IconEdit = styled(EditIcon)`
-  position: absolute;
-  top: 10%;
-  right: -30px;
-  font-size: 14px;
-  cursor: pointer;
-  &:hover{
-    color: #2271dd;
-  };
-`;
+// const IconEdit = styled(EditIcon)`
+//   position: absolute;
+//   top: 10%;
+//   right: -30px;
+//   font-size: 14px;
+//   cursor: pointer;
+//   &:hover{
+//     color: #2271dd;
+//   };
+// `;
 const IconDelete = styled(DeleteIcon)`
   position: absolute;
   font-size: 14px;

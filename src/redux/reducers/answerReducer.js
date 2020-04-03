@@ -5,6 +5,7 @@ const initialState = {
   answer_created: {},
   answers: [],
   message: '',
+  approve: {},
 }
 
 const answerReducer = (state = initialState, action) =>
@@ -33,6 +34,9 @@ const answerReducer = (state = initialState, action) =>
         })
         newState.answers = answers_new_edit;
         break;
+      // case answerConstants.APPROVE_SUCCESS:
+      //   newState.approve = action.payload;
+      //   break;
       default:
         return newState;
     }

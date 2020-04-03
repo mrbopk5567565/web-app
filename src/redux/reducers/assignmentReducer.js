@@ -12,7 +12,7 @@ const assignmentReducer = (state = initialState, action) =>
   produce(state, newState => {
     switch (action.type) {
       case assignmentsConstants.CREATE_ASSIGNMENT_SUCCESS:
-        newState.status = action.payload;
+        newState.assignments.data = [action.create_assignment, ...newState.answers_assignment.data];
         break;
       case assignmentsConstants.LOAD_ASSIGNMENTS_SUCCESS:
         newState.assignments = action.payload;
@@ -35,9 +35,20 @@ const assignmentReducer = (state = initialState, action) =>
       case assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS:
         newState.answers_assignment = action.answer;
         break;
+
+      // API bên answer
       case assignmentsConstants.DELETE_ANSWER_MENTOR_SUCCESS:
         const answers_assignment_new = newState.answers_assignment[action.id_assignment].filter(item => item.id !== action.id_answer)
         newState.answers_assignment = { ...newState.answers_assignment, [action.id_assignment]: answers_assignment_new };
+        break;
+      case assignmentsConstants.APPROVE_BY_MENTOR_SUCCESS:
+        const answers_assignment_approve = newState.answers_assignment[action.assignment_id].map(item => {
+          if (item.id === action.id_answer) {
+            item = action.payload;
+          }
+          return item;
+        })
+        newState.answers_assignment = { ...newState.answers_assignment, [action.assignment_id]: answers_assignment_approve };
         break;
       default:
         return newState;

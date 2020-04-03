@@ -6,6 +6,7 @@ import {
   LoadAnswer,
   DeleteAnswer,
   EditAnswer,
+  Approve
 } from '../../api/answerApi';
 
 function* onCreateAnswer(action) {
@@ -50,9 +51,19 @@ function* onEditAnswer(action) {
   }
 }
 
+// function* onApprove(action) {
+//   try {
+//     const approve = yield call(Approve, action.id_answer)
+//     yield put({ type: answerConstants.APPROVE_SUCCESS, payload: approve, id_answer: action.id_answer })
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
 export default function* Answer() {
   yield takeLatest(answerConstants.CREATE_ANSWER_REQUEST, onCreateAnswer)
   yield takeLatest(answerConstants.LOAD_ANSWER_REQUEST, onLoadAnswer)
   yield takeLatest(answerConstants.DELETE_ANSWER_REQUEST, onDeteleAnswer)
   yield takeLatest(answerConstants.EDIT_ANSWER_REQUEST, onEditAnswer)
+  // yield takeLatest(answerConstants.APPROVE_REQUEST, onApprove)
 }
