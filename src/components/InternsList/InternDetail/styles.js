@@ -16,6 +16,15 @@ const styles = makeStyles(() =>
       borderRadius: '5px',
       margin: '5px',
       transition: '0.3s',
+      position: 'relative',
+    },
+    timeline: {
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      width: '100%',
+      height: '100%',
+
     },
     editImage: {
       position: "absolute",

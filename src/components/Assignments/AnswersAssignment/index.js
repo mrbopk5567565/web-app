@@ -125,7 +125,7 @@ const AnswersAssignment = (props) => {
           return (
             <WrapperAnswers key={idx}>
               <Answers>
-                <p>{`#${item.user_id}`}</p>
+                <p>{`${item.user.name}`}</p>
                 <p className="link">
                   {item.link}
                 </p>

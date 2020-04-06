@@ -33,6 +33,7 @@ const InternDetail = (props) => {
             <InfoItem className={classes.infoItem}>{`Start day: ${moment(props.data_detail.start_day).format("DD/MM/YYYY")}`}</InfoItem>
           </div>
         }
+        {/* <div className={classes.timeline}>123</div> */}
       </div>
     </React.Fragment>
   )

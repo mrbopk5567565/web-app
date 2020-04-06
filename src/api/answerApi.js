@@ -10,7 +10,7 @@ export const CreateAnswer = async (profile) => {
 
 export const LoadAnswer = async () => {
   const res = await axios.get(`/api/v1/answers`)
-  return res.data;
+  return res.data.data;
 }
 
 export const DeleteAnswer = async (id_answer) => {

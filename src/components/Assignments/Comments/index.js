@@ -44,16 +44,16 @@ const Comments = (props) => {
       <div className="btnComment" onClick={handleShowComment}>Comment</div>
 
       {comment_answer && comment_answer[id_answer] && showComment &&
-        comment_answer[id_answer].map((item, idx) => {
+        comment_answer[id_answer].data.map((item, idx) => {
           if (id_answer === item.answer_id) {
             return (
               <CommentItem key={idx}>
-                <div className="user">{`user id: #${item.user_id}`}</div>
+                <div className="user">{`${item.user.name}`}</div>
                 <div>{item.content}</div>
                 {role === "mentor" &&
                   <IconDetele onClick={() => handleDeteleComment(item, id_answer)} />
                 }
-                {role === "intern" && item.user_id === user_id.id &&
+                {role === "intern" && item.user.id === user_id.id &&
                   <IconDetele onClick={() => handleDeteleComment(item, id_answer)} />
                 }
                 <Time
