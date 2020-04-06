@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import styles, { InfoItem } from './styles';
 import { connect } from 'react-redux';
 import { domain } from '../../../utils/common';
@@ -14,6 +14,29 @@ const InternDetail = (props) => {
   }, [])
 
   const classes = styles();
+
+  const FinishDay = () => {
+    const start_date = new Date(props.data_detail.start_date)
+    const convert_start_date = start_date.getTime() / 1000.0;
+    const twoMonth = 5270400;
+    const finishDay = convert_start_date + twoMonth;
+
+    return moment(finishDay * 1000).format("DD/MM/YYYY")
+  }
+
+  const TimeLineFinishDay = () => {
+    const start_date = new Date(props.data_detail.start_date)
+    const convert_start_date = start_date.getTime() / 1000.0;
+    const twoMonth = 5270400;
+    const finishDay = convert_start_date + twoMonth;
+    const now = Math.floor(new Date().getTime() / 1000.0)
+    if (finishDay > now) {
+      return (((now - convert_start_date) / twoMonth) * 100).toFixed(2);
+    } else {
+      return 100;
+    }
+  }
+
   return (
     <React.Fragment>
       <div className={classes.profile} onClick={props.goPageDetail}>
@@ -30,10 +53,19 @@ const InternDetail = (props) => {
             <InfoItem className={classes.infoItem}>{`Name: ${props.data_detail.name}`}</InfoItem>
             <InfoItem className={classes.infoItem}>{`Email: ${props.data_detail.email} `}</InfoItem>
             <InfoItem className={classes.infoItem}>{`School: ${props.data_detail.school ? props.data_detail.school : "school of life"}`}</InfoItem>
-            <InfoItem className={classes.infoItem}>{`Start day: ${moment(props.data_detail.start_day).format("DD/MM/YYYY")}`}</InfoItem>
+            <InfoItem className={classes.infoItem}>{`Start day: ${moment(props.data_detail.start_date).format("DD/MM/YYYY")}`}</InfoItem>
+            <InfoItem className={classes.infoItem}>{`Finish day: ${FinishDay()}`}</InfoItem>
           </div>
         }
-        {/* <div className={classes.timeline}>123</div> */}
+        {props.data_detail &&
+          <div className={classes.wrapperTimeline}>
+            <div className={classes.timeline}>
+              <div className={classes.timeline_total}></div>
+              <div className={classes.timeline_reach} style={{ width: `${TimeLineFinishDay()}%` }}></div>
+              <div className={classes.timeline_show}>{`${TimeLineFinishDay()}%`}</div>
+            </div>
+          </div>
+        }
       </div>
     </React.Fragment>
   )
