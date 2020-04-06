@@ -93,7 +93,7 @@ const AnswersAssignment = (props) => {
         answers_assignment[id_assignment].map((item, idx) =>
           <WrapperAnswers key={idx}>
             <Answers>
-              <p>{`#${item.user_id}`}</p>
+              <p>{`${item.user.name}`}</p>
               <p className="link">
                 {item.link}
               </p>
