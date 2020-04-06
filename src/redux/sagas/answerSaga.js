@@ -12,7 +12,7 @@ import {
 function* onCreateAnswer(action) {
   try {
     const answer_created = yield call(CreateAnswer, action.profile)
-    yield put({ type: answerConstants.CREATE_ANSWER_SUCCESS, payload: answer_created.answer })
+    yield put({ type: answerConstants.CREATE_ANSWER_SUCCESS, payload: answer_created })
   } catch (error) {
     console.log(error)
   }

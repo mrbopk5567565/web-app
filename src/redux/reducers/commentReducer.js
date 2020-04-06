@@ -15,7 +15,7 @@ const commentReducer = (state = initialState, action) =>
         newState.loading = true;
         break;
       case commentConstants.LOAD_COMMENT_ANSWER_SUCCESS:
-        newState.comment_answer = { ...newState.comment_answer, [action.id_answer]: action.payload };
+        newState.comment_answer = { ...newState.comment_answer, [action.id_answer]: action.payload.data };
         // newState.comment_answer = action.comments;
         newState.loading = false;
         break;

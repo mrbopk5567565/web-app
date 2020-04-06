@@ -44,7 +44,7 @@ const Comments = (props) => {
       <div className="btnComment" onClick={handleShowComment}>Comment</div>
 
       {comment_answer && comment_answer[id_answer] && showComment &&
-        comment_answer[id_answer].data.map((item, idx) => {
+        comment_answer[id_answer].map((item, idx) => {
           if (id_answer === item.answer_id) {
             return (
               <CommentItem key={idx}>
