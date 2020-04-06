@@ -12,7 +12,7 @@ const styles = makeStyles(() =>
       position: "relative",
       alignItems: 'center',
       // justifyContent: 'center',
-      width: 'calc(100%/2 - 10px)',
+      // width: 'calc(100%/2 - 10px)',
       padding: '20px 10px',
       border: `1px solid #00cec9`,
       borderRadius: '5px',

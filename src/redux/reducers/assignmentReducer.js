@@ -12,7 +12,7 @@ const assignmentReducer = (state = initialState, action) =>
   produce(state, newState => {
     switch (action.type) {
       case assignmentsConstants.CREATE_ASSIGNMENT_SUCCESS:
-        newState.assignments.data = [action.create_assignment, ...newState.answers_assignment.data];
+        newState.assignments.data = [action.create_assignment, ...newState.assignments.data];
         break;
       case assignmentsConstants.LOAD_ASSIGNMENTS_SUCCESS:
         newState.assignments = action.payload;
