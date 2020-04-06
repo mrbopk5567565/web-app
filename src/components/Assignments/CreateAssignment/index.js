@@ -191,6 +191,7 @@ const Wrapper = styled.div`
   color: #2271dd;
   cursor: pointer;
   font-weight: 500;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
   p {
     display: flex;
     align-items: center;
