@@ -6,6 +6,7 @@ import { colorLogo } from '../../../utils/color'
 const styles = makeStyles(() =>
   createStyles({
     profile: {
+      display: 'inline-block',
       cursor: 'pointer',
       display: 'flex',
       position: "relative",

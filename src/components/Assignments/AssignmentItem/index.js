@@ -10,6 +10,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 import AnswersAssignment from '../AnswersAssignment';
+import { ConvertSecToDay } from '../../../utils/common'
 import {
   Dialog,
   DialogActions,
@@ -104,21 +105,27 @@ const AssignmentItem = (props) => {
 
   const DeadlineAssignment = () => {
     const timeCreateAssingment = new Date(props.item.updated_at)
-    const estimation = 60 * props.item.estimation;
+    const convert_timeCreateAssignment = Math.floor(timeCreateAssingment.getTime() / 1000.0);
+    const estimation = 3600 * props.item.estimation;
     const now = Math.floor(new Date().getTime() / 1000.0)
-    if (timeCreateAssingment + estimation > now) {
-      //c1:
-      const timeoutNumber = now - (timeCreateAssingment + estimation);
-      const timeout = moment(timeoutNumber * 1000).format('minute')
+    if ((convert_timeCreateAssignment + estimation) > now) {
+      const timeoutNumber = (convert_timeCreateAssignment + estimation) - now;
+      var myDate = new Date(timeoutNumber * 1000);
+      // const timeout = moment(timeoutNumber * 1000).format('h:mm')
+      // return `Time left: ${ConvertSecToDay(timeoutNumber)}`
+      return {
+        show: `Time left: ${ConvertSecToDay(timeoutNumber)}`,
+        time: true
+      }
 
-      //c2:
-      // const timeoutNumber = timeCreateAssingment + estimation;
-      // const timeout = moment(timeoutNumber).startOf('minute').fromNow();
-      return `Time out : ${timeout}`
     } else {
-      const timeoutNumber = (timeCreateAssingment + estimation) - now;
-      const timeout = moment(timeoutNumber * 1000).format('minute');
-      return `Time left : ${timeout}`
+      const timeoutNumber = now - (convert_timeCreateAssignment + estimation);
+      // const timeout = moment(timeoutNumber * 1000).format('hh:mm');
+      // return `Time out: ${ConvertSecToDay(timeoutNumber)}`
+      return {
+        show: `Time out: ${ConvertSecToDay(timeoutNumber)}`,
+        time: false
+      }
     }
   }
 
@@ -138,7 +145,8 @@ const AssignmentItem = (props) => {
           <Question>
             <div className="question">{props.item.question}</div>
             <InfoQuestion>
-              <p>{`Estimation: ${props.item.estimation}`}</p>
+              <p>{`Estimation: ${props.item.estimation} hours`}</p>
+              <p style={{ color: `${DeadlineAssignment().time == false ? '#b2bec3' : 'white'}` }}> {DeadlineAssignment().show}</p>
               <p>{`Team: ${props.item.team}`}</p>
             </InfoQuestion>
             <Description>
@@ -312,6 +320,7 @@ const InfoQuestion = styled.div`
   display: flex;
   margin: 5px 0;
   p {
+    font-size: 12px;
     padding: 8px;
     border-radius: 16px;
     background: #2271dd;

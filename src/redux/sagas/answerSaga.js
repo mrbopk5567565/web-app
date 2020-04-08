@@ -6,7 +6,8 @@ import {
   LoadAnswer,
   DeleteAnswer,
   EditAnswer,
-  Approve
+  Approve,
+  AnswerInternByMentor
 } from '../../api/answerApi';
 
 function* onCreateAnswer(action) {
@@ -60,10 +61,20 @@ function* onEditAnswer(action) {
 //   }
 // }
 
+function* onLoadAnwerInternByMentor(action) {
+  try {
+    const answer_intern = yield call(AnswerInternByMentor, action.id_intern)
+    yield put({ type: answerConstants.ANSWER_INTERN_BY_MENTOR_SUCCESS, payload: answer_intern })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export default function* Answer() {
   yield takeLatest(answerConstants.CREATE_ANSWER_REQUEST, onCreateAnswer)
   yield takeLatest(answerConstants.LOAD_ANSWER_REQUEST, onLoadAnswer)
   yield takeLatest(answerConstants.DELETE_ANSWER_REQUEST, onDeteleAnswer)
   yield takeLatest(answerConstants.EDIT_ANSWER_REQUEST, onEditAnswer)
   // yield takeLatest(answerConstants.APPROVE_REQUEST, onApprove)
+  yield takeLatest(answerConstants.ANSWER_INTERN_BY_MENTOR_REQUEST, onLoadAnwerInternByMentor)
 }

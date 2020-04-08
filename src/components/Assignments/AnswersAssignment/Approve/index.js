@@ -28,18 +28,19 @@ const Approve = (props) => {
   return (
     <div>
       <IconApprove approve={approve.toString()} onClick={handleApprove} />
-      {approve &&
-        <ShowChooseMark show={show.toString()} onClick={handleShowChooseMark}>Mark</ShowChooseMark>
+      {approve && role === "mentor" &&
+        < ShowChooseMark show={show.toString()} onClick={handleShowChooseMark}>Mark</ShowChooseMark>
       }
       <WrapMark>
         {show && approve && mark.map((item, idx) =>
           <Mark key={idx} onClick={() => handlePickMark(item)}>{item}</Mark>
         )}
       </WrapMark>
-      {approve &&
+      {
+        approve &&
         <ShowMark>{`Mark: ${mark1}`}</ShowMark>
       }
-    </div>
+    </div >
   )
 }
 
@@ -64,6 +65,7 @@ const ShowChooseMark = styled.div`
   color: white;
   margin-top: 5px;
   position: relative;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
   &::after{
     position: absolute;
     content: '';

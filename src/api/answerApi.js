@@ -25,6 +25,11 @@ export const EditAnswer = async (profile, id_answer) => {
 
 export const Approve = async (id_answer) => {
   const res = await axios.put(`/api/v1/answers/${id_answer}/approved`)
-  // console.log('res', res.data)
+  return res.data;
+}
+
+export const AnswerInternByMentor = async (id_intern) => {
+  const res = await axios.get(`/api/v1/answers/${id_intern}/answers`)
+  // console.log('res', res)
   return res.data;
 }

@@ -101,7 +101,7 @@ const AnswersAssignment = (props) => {
               <Approve
                 id_answer={item.id}
                 approve={item.completed}
-                assignment_id={item.assignment_id}
+                assignment_id={item.assignment.id}
               />
               <Time
                 time_update={item.updated_at}
@@ -120,8 +120,8 @@ const AnswersAssignment = (props) => {
       }
 
       {/* show answer in intern */}
-      {answers && answers !== [] && role === "intern" && answers.map((item, idx) => {
-        if (item.assignment_id === id_assignment) {
+      {answers && answers.length !== 0 && role === "intern" && answers.map((item, idx) => {
+        if (item.assignment !== null && item.assignment.id === id_assignment) {
           return (
             <WrapperAnswers key={idx}>
               <Answers>

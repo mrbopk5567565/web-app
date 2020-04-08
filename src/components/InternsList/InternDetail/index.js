@@ -5,12 +5,16 @@ import { domain } from '../../../utils/common';
 import imageDefault from '../../../images/no_image.jpg';
 import moment from 'moment';
 import { LOAD_INTERNS_REQUEST } from '../../../redux/constants/mentorConstants';
+import { ANSWER_INTERN_BY_MENTOR_REQUEST } from '../../../redux/constants/answerConstants'
+import { ConvertSecToDay } from '../../../utils/common';
+import styled from 'styled-components'
 
 const InternDetail = (props) => {
   const [id] = useState(props.match.params.id);
   const [page] = useState(props.match.params.page);
   useEffect(() => {
     props.dispatch({ type: LOAD_INTERNS_REQUEST, page, id })
+    props.dispatch({ type: ANSWER_INTERN_BY_MENTOR_REQUEST, id_intern: id })
   }, [])
 
   const classes = styles();
@@ -31,14 +35,22 @@ const InternDetail = (props) => {
     const finishDay = convert_start_date + twoMonth;
     const now = Math.floor(new Date().getTime() / 1000.0)
     if (finishDay > now) {
-      return (((now - convert_start_date) / twoMonth) * 100).toFixed(2);
+      // return (((now - convert_start_date) / twoMonth) * 100).toFixed(2);
+      // return ConvertSecToDay(now - convert_start_date)
+      return {
+        percent: (((now - convert_start_date) / twoMonth) * 100).toFixed(2),
+        show: ConvertSecToDay(now - convert_start_date)
+      }
     } else {
-      return 100;
+      return {
+        percent: 100,
+        show: `60 days`
+      }
     }
   }
 
   return (
-    <React.Fragment>
+    <Wrapper>
       <div className={classes.profile} onClick={props.goPageDetail}>
         <div className={classes.editImage}>
           <input id="inputFile" type="file" accept="image/*" />
@@ -61,13 +73,16 @@ const InternDetail = (props) => {
           <div className={classes.wrapperTimeline}>
             <div className={classes.timeline}>
               <div className={classes.timeline_total}></div>
-              <div className={classes.timeline_reach} style={{ width: `${TimeLineFinishDay()}%` }}></div>
-              <div className={classes.timeline_show}>{`${TimeLineFinishDay()}%`}</div>
+              <div className={classes.timeline_reach} style={{ width: `${TimeLineFinishDay().percent}%` }}></div>
+              <div className={classes.timeline_show}>{`${TimeLineFinishDay().show}`}</div>
             </div>
           </div>
         }
       </div>
-    </React.Fragment>
+      <WrapperAnswerAssignment>
+        show content new
+      </WrapperAnswerAssignment>
+    </Wrapper>
   )
 }
 
@@ -78,3 +93,12 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps)(InternDetail);
+
+const Wrapper = styled.div`
+  display: flex;
+`
+
+const WrapperAnswerAssignment = styled.div`
+  display: inline-block;
+  width: calc(100% - 550px);
+`;

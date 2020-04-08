@@ -6,6 +6,7 @@ const initialState = {
   answers: [],
   message: '',
   approve: {},
+  answer_intern: {}
 }
 
 const answerReducer = (state = initialState, action) =>
@@ -37,6 +38,9 @@ const answerReducer = (state = initialState, action) =>
       // case answerConstants.APPROVE_SUCCESS:
       //   newState.approve = action.payload;
       //   break;
+      case answerConstants.ANSWER_INTERN_BY_MENTOR_SUCCESS:
+        newState.answer_intern = action.payload;
+        break;
       default:
         return newState;
     }
