@@ -5,6 +5,7 @@ import * as assignmentsConstants from '../../../redux/constants/assignmentsConst
 // import * as answerConstants from '../../../redux/constants/answerConstants';
 // import imageDefault from '../../../images/no_image.jpg';
 // import { domain } from '../../../utils/common';
+import moment from 'moment';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
@@ -98,6 +99,26 @@ const AssignmentItem = (props) => {
         break;
       default:
         break;
+    }
+  }
+
+  const DeadlineAssignment = () => {
+    const timeCreateAssingment = new Date(props.item.updated_at)
+    const estimation = 60 * props.item.estimation;
+    const now = Math.floor(new Date().getTime() / 1000.0)
+    if (timeCreateAssingment + estimation > now) {
+      //c1:
+      const timeoutNumber = now - (timeCreateAssingment + estimation);
+      const timeout = moment(timeoutNumber * 1000).format('minute')
+
+      //c2:
+      // const timeoutNumber = timeCreateAssingment + estimation;
+      // const timeout = moment(timeoutNumber).startOf('minute').fromNow();
+      return `Time out : ${timeout}`
+    } else {
+      const timeoutNumber = (timeCreateAssingment + estimation) - now;
+      const timeout = moment(timeoutNumber * 1000).format('minute');
+      return `Time left : ${timeout}`
     }
   }
 
