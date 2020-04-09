@@ -24,6 +24,10 @@ const answerReducer = (state = initialState, action) =>
         newState.message = action.payload;
         const answers_new = newState.answers.filter(item => item.id !== action.id_answer);
         newState.answers = answers_new;
+        if (newState.answer_intern.data !== undefined) {
+          const answer_intern_delete = newState.answer_intern.data.filter(item => item.id !== action.id_answer)
+          newState.answer_intern.data = answer_intern_delete;
+        }
         break;
       case answerConstants.EDIT_ANSWER_SUCCESS:
         newState.message = action.payload;

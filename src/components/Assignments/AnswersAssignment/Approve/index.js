@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import styled from 'styled-components';
-import * as answerConstant from '../../../../redux/constants/answerConstants'
+import * as answerConstants from '../../../../redux/constants/answerConstants'
 import * as assignmentsConstants from '../../../../redux/constants/assignmentsConstants'
 import Evaluate from './Evaluate'
 
@@ -13,7 +13,7 @@ const Approve = (props) => {
   const handleApprove = () => {
     // Do luu data cua api answer_assignment khong dung cho nen phai tach approve ra nhu vay :(((
     if (role === 'mentor' && props.define === 'approve_in_intern_detail') {
-      props.dispatch({ type: answerConstant.APPROVE_REQUEST, id_answer })
+      props.dispatch({ type: answerConstants.APPROVE_REQUEST, id_answer })
     } else if (role === 'mentor') {
       props.dispatch({ type: assignmentsConstants.APPROVE_BY_MENTOR_REQUEST, id_answer, assignment_id })
     }
@@ -27,7 +27,7 @@ const Approve = (props) => {
     const profile = new FormData();
     profile.append('mark', item)
     props.dispatch({
-      type: answerConstant.PUT_MARK_REQUEST,
+      type: answerConstants.PUT_MARK_REQUEST,
       id_answer: id_answer,
       profile,
       mark: item,

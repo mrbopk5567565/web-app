@@ -50,6 +50,24 @@ const InternDetail = (props) => {
     }
   }
 
+  const Average = () => {
+    if (props.answer_intern_detail.data !== undefined) {
+      var count = 0
+      var average = 0;
+      props.answer_intern_detail.data.map(item => {
+        if (item.completed === true) {
+          average += item.mark
+          count += 1;
+        }
+      })
+      console.log('123', count / props.answer_intern_detail.data.length)
+      return {
+        width: (count / props.answer_intern_detail.data.length) * 100,
+        show: `${count} / ${props.answer_intern_detail.data.length} approve ; Average: ${(average / count).toFixed(2)}`
+      };
+    }
+  }
+
   return (
     <Wrapper>
       <div className={classes.profile} onClick={props.goPageDetail}>
@@ -76,6 +94,15 @@ const InternDetail = (props) => {
               <div className={classes.timeline_total}></div>
               <div className={classes.timeline_reach} style={{ width: `${TimeLineFinishDay().percent}%` }}></div>
               <div className={classes.timeline_show}>{`${TimeLineFinishDay().show}`}</div>
+            </div>
+          </div>
+        }
+        {props.answer_intern_detail.data &&
+          <div className={classes.wrapperAverage}>
+            <div className={classes.average}>
+              <div className={classes.average_total}></div>
+              <div className={classes.average_reach} style={{ width: `${Average().width}%` }}></div>
+              <div className={classes.average_show}>{`${Average().show}`}</div>
             </div>
           </div>
         }
