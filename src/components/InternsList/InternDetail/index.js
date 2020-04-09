@@ -63,7 +63,7 @@ const InternDetail = (props) => {
       console.log('123', count / props.answer_intern_detail.data.length)
       return {
         width: (count / props.answer_intern_detail.data.length) * 100,
-        show: `${count} / ${props.answer_intern_detail.data.length} approve ; Average: ${(average / count).toFixed(2)}`
+        show: `${count} / ${props.answer_intern_detail.data.length} approved ; Average: ${(average / count).toFixed(2)}`
       };
     }
   }
