@@ -35,11 +35,38 @@ const answerReducer = (state = initialState, action) =>
         })
         newState.answers = answers_new_edit;
         break;
-      // case answerConstants.APPROVE_SUCCESS:
-      //   newState.approve = action.payload;
-      //   break;
+      case answerConstants.APPROVE_SUCCESS:
+        const answer_intern_approve = newState.answer_intern.data.map(item => {
+          if (item.id === action.id_answer) {
+            item = action.payload;
+          }
+          return item;
+        })
+        newState.answer_intern.data = answer_intern_approve
+        break;
       case answerConstants.ANSWER_INTERN_BY_MENTOR_SUCCESS:
-        newState.answer_intern = action.payload;
+        newState.answer_intern.data = action.payload;
+        break;
+      case answerConstants.PUT_MARK_SUCCESS:
+        // newState.message = action.payload.message;
+        if (action.mark !== undefined) {
+          const answer_intern_new_put = newState.answer_intern.data.map(item => {
+            if (item.id === action.id_answer) {
+              item.mark = action.mark;
+            }
+            return item
+          })
+          newState.answer_intern.data = answer_intern_new_put;
+        }
+        if (action.evaluate !== undefined) {
+          const answer_intern_new_put = newState.answer_intern.data.map(item => {
+            if (item.id === action.id_answer) {
+              item.evaluate = action.evaluate;
+            }
+            return item
+          })
+          newState.answer_intern.data = answer_intern_new_put;
+        }
         break;
       default:
         return newState;

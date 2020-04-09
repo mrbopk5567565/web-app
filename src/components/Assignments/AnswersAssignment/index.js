@@ -89,7 +89,7 @@ const AnswersAssignment = (props) => {
       }
 
       {/* show answer in mentor */}
-      {answers_assignment && answers_assignment[id_assignment] &&
+      {/* {answers_assignment && answers_assignment[id_assignment] &&
         answers_assignment[id_assignment].map((item, idx) =>
           <WrapperAnswers key={idx}>
             <Answers>
@@ -102,6 +102,8 @@ const AnswersAssignment = (props) => {
                 id_answer={item.id}
                 approve={item.completed}
                 assignment_id={item.assignment.id}
+                mark={item.mark}
+                evaluate={item.evaluate}
               />
               <Time
                 time_update={item.updated_at}
@@ -117,7 +119,7 @@ const AnswersAssignment = (props) => {
             </InputComment>
           </WrapperAnswers>
         )
-      }
+      } */}
 
       {/* show answer in intern */}
       {answers && answers.length !== 0 && role === "intern" && answers.map((item, idx) => {
@@ -134,6 +136,8 @@ const AnswersAssignment = (props) => {
                 <Approve
                   id_answer={item.id}
                   approve={item.completed}
+                  mark={item.mark}
+                  evaluate={item.evaluate}
                 />
                 <InputEditAnswer
                   id_answer={item.id}
@@ -233,13 +237,6 @@ const InputComment = styled.div`
 
 const WrapperAnswers = styled.div`
   margin: 10px 0 20px 20px;
-  .btnComment {
-    margin: 10px 0 0 0 ;
-    text-align: end;
-    color: #2271dd;
-    font-size: 14px;
-    cursor: pointer;
-  }
 `;
 const Answers = styled.div`
   margin: 0;

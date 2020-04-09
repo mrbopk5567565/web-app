@@ -62,17 +62,6 @@ function* onDeleteAssignment(action) {
   }
 }
 
-// function* onLoadAnswersAssignment(action) {
-//   try {
-//     const answers_assignment = yield call(LoadAnswersAssignment, action.id_assignment)
-//     // const ids = answers_assignment.data.map(item => item.id)
-//     console.log('answers_assignment', answers_assignment)
-//     yield put({ type: assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_SUCCESS, payload: answers_assignment })
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
-
 function* onDeteleAnswer(action) {
   try {
     yield call(DeleteAnswer, action.id_answer)
@@ -100,6 +89,22 @@ function* onApprove(action) {
   }
 }
 
+// function* onPutMark(action) {
+//   try {
+//     // const mark = yield call(Mark)
+//     yield put({
+//       type: assignmentsConstants.PUT_MARK_ASSIGNMENT_SUCCESS,
+//       mark: action.mark,
+//       evaluate: action.evaluate,
+//       id_answer: action.id_answer,
+//       assignment_id: action.assignment_id,
+//     })
+//   } catch (error) {
+//     console.log(error)
+//   }
+
+// }
+
 export default function* Assignment() {
   yield takeLatest(assignmentsConstants.CREATE_ASSIGNMENT_REQUEST, onCreateAssignment)
   yield takeLatest(assignmentsConstants.LOAD_ASSIGNMENTS_REQUEST, onLoadAssignments)
@@ -108,4 +113,5 @@ export default function* Assignment() {
   // yield takeLatest(assignmentsConstants.LOAD_ANSWERS_ASSIGNMENT_REQUEST, onLoadAnswersAssignment)
   yield takeLatest(assignmentsConstants.DELETE_ANSWER_MENTOR_REQUEST, onDeteleAnswer)
   yield takeLatest(assignmentsConstants.APPROVE_BY_MENTOR_REQUEST, onApprove)
+  // yield takeLatest(answerConstants.PUT_MARK_REQUEST, onPutMark)
 }

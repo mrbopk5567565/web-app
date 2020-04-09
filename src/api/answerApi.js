@@ -33,3 +33,8 @@ export const AnswerInternByMentor = async (id_intern) => {
   // console.log('res', res)
   return res.data;
 }
+
+export const Mark = async (id_answer, profile) => {
+  const res = await axios.put(`/api/v1/answers/${id_answer}/mark`, profile)
+  return res.data;
+}

@@ -7,7 +7,8 @@ import {
   DeleteAnswer,
   EditAnswer,
   Approve,
-  AnswerInternByMentor
+  AnswerInternByMentor,
+  Mark,
 } from '../../api/answerApi';
 
 function* onCreateAnswer(action) {
@@ -52,19 +53,37 @@ function* onEditAnswer(action) {
   }
 }
 
-// function* onApprove(action) {
-//   try {
-//     const approve = yield call(Approve, action.id_answer)
-//     yield put({ type: answerConstants.APPROVE_SUCCESS, payload: approve, id_answer: action.id_answer })
-//   } catch (error) {
-//     console.log(error)
-//   }
-// }
+function* onApprove(action) {
+  try {
+    const approve = yield call(Approve, action.id_answer)
+    yield put({ type: answerConstants.APPROVE_SUCCESS, payload: approve, id_answer: action.id_answer })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 function* onLoadAnwerInternByMentor(action) {
   try {
     const answer_intern = yield call(AnswerInternByMentor, action.id_intern)
-    yield put({ type: answerConstants.ANSWER_INTERN_BY_MENTOR_SUCCESS, payload: answer_intern })
+    const answer_intern_null = answer_intern.data.filter(item => item.assignment !== null)
+    answer_intern_null.sort((a, b) => b.assignment.id - a.assignment.id)
+    // console.log('answer_intern_as', answer_intern.data)
+    yield put({ type: answerConstants.ANSWER_INTERN_BY_MENTOR_SUCCESS, payload: answer_intern_null })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+function* onPutMark(action) {
+  try {
+    const mark = yield call(Mark, action.id_answer, action.profile)
+    yield put({
+      type: answerConstants.PUT_MARK_SUCCESS,
+      payload: mark,
+      mark: action.mark,
+      evaluate: action.evaluate,
+      id_answer: action.id_answer,
+    })
   } catch (error) {
     console.log(error)
   }
@@ -75,6 +94,7 @@ export default function* Answer() {
   yield takeLatest(answerConstants.LOAD_ANSWER_REQUEST, onLoadAnswer)
   yield takeLatest(answerConstants.DELETE_ANSWER_REQUEST, onDeteleAnswer)
   yield takeLatest(answerConstants.EDIT_ANSWER_REQUEST, onEditAnswer)
-  // yield takeLatest(answerConstants.APPROVE_REQUEST, onApprove)
+  yield takeLatest(answerConstants.APPROVE_REQUEST, onApprove)
   yield takeLatest(answerConstants.ANSWER_INTERN_BY_MENTOR_REQUEST, onLoadAnwerInternByMentor)
+  yield takeLatest(answerConstants.PUT_MARK_REQUEST, onPutMark)
 }

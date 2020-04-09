@@ -105,6 +105,13 @@ const Wrapper = styled.div`
     border: 1px solid black;
     border-radius: 3px;
   }
+  .btnComment {
+    margin: 10px 0 0 0 ;
+    text-align: end;
+    color: #2271dd;
+    font-size: 14px;
+    cursor: pointer;
+  }
 `;
 const CommentItem = styled.div`
   position: relative;

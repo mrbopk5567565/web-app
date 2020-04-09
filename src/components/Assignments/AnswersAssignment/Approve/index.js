@@ -4,14 +4,17 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import styled from 'styled-components';
 import * as answerConstant from '../../../../redux/constants/answerConstants'
 import * as assignmentsConstants from '../../../../redux/constants/assignmentsConstants'
+import Evaluate from './Evaluate'
 
 const Approve = (props) => {
   const [role] = useState(localStorage.getItem('role'))
-  const [mark1, setMark] = useState(0)
   const [show, setShow] = useState(false)
-  const { id_answer, approve, assignment_id } = props
+  const { id_answer, approve, assignment_id, mark, evaluate } = props
   const handleApprove = () => {
-    if (role === 'mentor') {
+    // Do luu data cua api answer_assignment khong dung cho nen phai tach approve ra nhu vay :(((
+    if (role === 'mentor' && props.define === 'approve_in_intern_detail') {
+      props.dispatch({ type: answerConstant.APPROVE_REQUEST, id_answer })
+    } else if (role === 'mentor') {
       props.dispatch({ type: assignmentsConstants.APPROVE_BY_MENTOR_REQUEST, id_answer, assignment_id })
     }
   }
@@ -21,8 +24,16 @@ const Approve = (props) => {
   }
 
   const handlePickMark = (item) => {
-    console.log('item', item, id_answer)
-    setMark(item)
+    const profile = new FormData();
+    profile.append('mark', item)
+    props.dispatch({
+      type: answerConstant.PUT_MARK_REQUEST,
+      id_answer: id_answer,
+      profile,
+      mark: item,
+      assignment_id: assignment_id,
+    })
+    setShow(!show)
   }
 
   return (
@@ -32,13 +43,21 @@ const Approve = (props) => {
         < ShowChooseMark show={show.toString()} onClick={handleShowChooseMark}>Mark</ShowChooseMark>
       }
       <WrapMark>
-        {show && approve && mark.map((item, idx) =>
+        {show && approve && markData.map((item, idx) =>
           <Mark key={idx} onClick={() => handlePickMark(item)}>{item}</Mark>
         )}
       </WrapMark>
       {
         approve &&
-        <ShowMark>{`Mark: ${mark1}`}</ShowMark>
+        <WrapperEvaluate>
+          <ShowMark>{`Mark: ${mark}`}</ShowMark>
+          {role === 'mentor' &&
+            <Evaluate
+              id_answer={id_answer}
+            />
+          }
+          <p>{`Evaluate: ${evaluate === null ? '' : evaluate}`}</p>
+        </WrapperEvaluate>
       }
     </div >
   )
@@ -93,10 +112,22 @@ const Mark = styled.div`
   width: 30px;
   padding: 3px 0;
   cursor: pointer;
+  margin-bottom: 5px;
 `;
 const ShowMark = styled.div`
-  margin-top: 5px;
   color: #e21a22;
 `;
 
-const mark = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const WrapperEvaluate = styled.div`
+  input {
+    margin: 5px 0 0 0;
+    padding: 5px 10px;
+    border: 1px solid #00cec9;
+    border-radius: 3px;
+  }
+  p {
+    margin: 5px 0 0 0;
+  }
+`;
+
+const markData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];

@@ -7,7 +7,8 @@ import moment from 'moment';
 import { LOAD_INTERNS_REQUEST } from '../../../redux/constants/mentorConstants';
 import { ANSWER_INTERN_BY_MENTOR_REQUEST } from '../../../redux/constants/answerConstants'
 import { ConvertSecToDay } from '../../../utils/common';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import AnswerInternDetail from './AnswerInternDetail'
 
 const InternDetail = (props) => {
   const [id] = useState(props.match.params.id);
@@ -80,7 +81,11 @@ const InternDetail = (props) => {
         }
       </div>
       <WrapperAnswerAssignment>
-        show content new
+        {props.answer_intern_detail.data &&
+          <AnswerInternDetail
+            data={props.answer_intern_detail.data}
+          />
+        }
       </WrapperAnswerAssignment>
     </Wrapper>
   )
@@ -89,6 +94,7 @@ const InternDetail = (props) => {
 const mapStateToProps = (state) => {
   return {
     data_detail: state.mentor.intern_detail,
+    answer_intern_detail: state.answer.answer_intern,
   }
 }
 
@@ -101,4 +107,5 @@ const Wrapper = styled.div`
 const WrapperAnswerAssignment = styled.div`
   display: inline-block;
   width: calc(100% - 550px);
+  margin-left: 5px;
 `;
