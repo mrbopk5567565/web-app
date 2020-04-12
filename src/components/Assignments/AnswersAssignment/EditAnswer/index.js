@@ -46,6 +46,20 @@ const EditAnwer = (props) => {
           />
         </InputEditAnswer>
       }
+      {link === null &&
+        <InputEditAnswer>
+          <label htmlFor="answer">Answer: </label>
+          <input
+            id="answer"
+            name="answer"
+            placeholder="answer ..."
+            type="text"
+            defaultValue={link}
+            // onChange={handleChange}
+            onKeyDown={keyPressEdit}
+          />
+        </InputEditAnswer>
+      }
     </div>
   )
 }

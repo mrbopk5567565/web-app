@@ -38,3 +38,8 @@ export const Mark = async (id_answer, profile) => {
   const res = await axios.put(`/api/v1/answers/${id_answer}/mark`, profile)
   return res.data;
 }
+
+export const AssignInternToAssignment = async (id_assignment, id_intern) => {
+  const res = await axios.put(`/api/v1/answers/assignment/${id_assignment}/assign_intern`, id_intern)
+  console.log(res)
+}

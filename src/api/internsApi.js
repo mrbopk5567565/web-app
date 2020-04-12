@@ -7,3 +7,8 @@ export const loadMentorDetail = async () => {
   const res = await axios.get('/api/v1/interns/mentor')
   return res.data;
 }
+
+export const LoadAssignmentOfIntern = async (id_intern) => {
+  const res = await axios.get(`/api/v1/interns/${id_intern}/assignments`)
+  return res.data;
+}

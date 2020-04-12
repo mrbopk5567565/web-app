@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as assignmentsConstants from '../../../redux/constants/assignmentsConstants';
 import * as answerConstants from '../../../redux/constants/answerConstants';
 import styled from 'styled-components';
@@ -10,20 +10,40 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import InputEditAnswer from './EditAnswer';
 import Approve from './Approve';
 import Time from './Time';
+import styles from './styles';
 import {
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@material-ui/core';
 
 const AnswersAssignment = (props) => {
   const [role] = useState(localStorage.getItem('role'))
-  const { id_assignment, answers_assignment, answers } = props;
+  const {
+    id_assignment,
+    answers_assignment,
+    answers, list_interns,
+  } = props;
   const [answer_id, setAnswer_id] = useState(0);
   const [openDeteleIntern, setOpenDeteleIntern] = useState(false);
   const [openDeteleMentor, setOpenDeteleMentor] = useState(false);
+  const [id_intern, setID_Intern] = useState(0);
+
+  useEffect(() => {
+    if (id_intern !== 0) {
+      const profile = new FormData();
+      profile.append('intern_id', id_intern)
+      props.dispatch({ type: answerConstants.ASSIGN_INTERN_TO_ASSIGNMENT_REQUEST, id_assignment, profile })
+    }
+  }, [id_intern])
+
+  const classes = styles();
 
   // Create Answer
   const keyPressCreateAnwer = (e) => {
@@ -71,6 +91,10 @@ const AnswersAssignment = (props) => {
     setOpenDeteleIntern(false);
   }
   // delete answer intern
+
+  const handleChangeSelectIntern = (e) => {
+    setID_Intern(e.target.value)
+  }
 
   return (
     <Wrapper>
@@ -120,6 +144,25 @@ const AnswersAssignment = (props) => {
           </WrapperAnswers>
         )
       } */}
+
+      {/* show interns of mentor */}
+      {role === "mentor" &&
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel className={classes.inputLabel} id="demo-simple-select-outlined-label">List Interns</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={id_intern}
+            onChange={handleChangeSelectIntern}
+            label="Interns"
+          >
+            <MenuItem value={0}>None</MenuItem>
+            {list_interns.data && list_interns.data.map((item, idx) =>
+              <MenuItem key={idx} value={item.id}>{`${item.id}: ${item.name}`}</MenuItem>
+            )}
+          </Select>
+        </FormControl>
+      }
 
       {/* show answer in intern */}
       {answers && answers.length !== 0 && role === "intern" && answers.map((item, idx) => {
@@ -212,7 +255,8 @@ const mapStateToProps = (state) => {
   return {
     // answers_assignment: state.assignment.assignments.data,
     answers_assignment: state.assignment.answers_assignment,
-    answers: state.answer.answers
+    answers: state.answer.answers,
+    list_interns: state.mentor.interns_mentor,
   }
 }
 

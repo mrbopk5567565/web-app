@@ -1,7 +1,7 @@
 import { put, takeLatest, call } from 'redux-saga/effects';
 import * as internConstants from '../constants/internConstants';
 import { LOAD_USER_DETAIL_SUCCESS } from '../constants/userConstants'
-import { loadMentorDetail } from '../../api/internsApi'
+import { loadMentorDetail, LoadAssignmentOfIntern } from '../../api/internsApi'
 
 function* onLoadMentorDetail() {
   try {
@@ -13,6 +13,17 @@ function* onLoadMentorDetail() {
   }
 }
 
-export default function* Interns (){
-  yield takeLatest( internConstants.LOAD_MENTOR_DETAIL_REQUEST, onLoadMentorDetail )
+function* onLoadAssignmentOfIntern(action) {
+  console.log('action', action)
+  try {
+    const assignment_intern = yield call(LoadAssignmentOfIntern, action.id_intern)
+    yield put({ type: internConstants.LOAD_ASSIGNMENT_OF_INTERN_SUCCESS, payload: assignment_intern })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export default function* Interns() {
+  yield takeLatest(internConstants.LOAD_MENTOR_DETAIL_REQUEST, onLoadMentorDetail)
+  yield takeLatest(internConstants.LOAD_ASSIGNMENT_OF_INTERN_REQUEST, onLoadAssignmentOfIntern)
 }

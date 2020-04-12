@@ -5,6 +5,7 @@ const initialState = {
   list_interns: {},
   intern_detail: {},
   loading_page: false,
+  interns_mentor: [],
 }
 
 const mentorReducer = (state = initialState, action) =>
@@ -19,6 +20,9 @@ const mentorReducer = (state = initialState, action) =>
         newState.list_interns = action.data_interns;
         newState.intern_detail = action.payload;
         newState.loading_page = false;
+        break;
+      case mentorConstants.LOAD_INTERNS_MENTOR_SUCCESS:
+        newState.interns_mentor = action.payload;
         break;
       default:
         return newState;

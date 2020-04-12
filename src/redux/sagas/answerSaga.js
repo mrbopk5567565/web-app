@@ -9,6 +9,7 @@ import {
   Approve,
   AnswerInternByMentor,
   Mark,
+  AssignInternToAssignment,
 } from '../../api/answerApi';
 
 function* onCreateAnswer(action) {
@@ -89,6 +90,14 @@ function* onPutMark(action) {
   }
 }
 
+function* onAssignInternToAssignment(action) {
+  try {
+    yield call(AssignInternToAssignment, action.id_assignment, action.profile)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export default function* Answer() {
   yield takeLatest(answerConstants.CREATE_ANSWER_REQUEST, onCreateAnswer)
   yield takeLatest(answerConstants.LOAD_ANSWER_REQUEST, onLoadAnswer)
@@ -97,4 +106,5 @@ export default function* Answer() {
   yield takeLatest(answerConstants.APPROVE_REQUEST, onApprove)
   yield takeLatest(answerConstants.ANSWER_INTERN_BY_MENTOR_REQUEST, onLoadAnwerInternByMentor)
   yield takeLatest(answerConstants.PUT_MARK_REQUEST, onPutMark)
+  yield takeLatest(answerConstants.ASSIGN_INTERN_TO_ASSIGNMENT_REQUEST, onAssignInternToAssignment)
 }

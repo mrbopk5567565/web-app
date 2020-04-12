@@ -4,14 +4,28 @@ import { connect } from 'react-redux';
 import AssignmentItem from '../AssignmentItem';
 import * as assignmentsConstants from '../../../redux/constants/assignmentsConstants';
 import * as answerConstants from '../../../redux/constants/answerConstants';
+import * as internConstants from '../../../redux/constants/internConstants'
 
 const ShowAssignments = (props) => {
+  const [role] = useState(localStorage.getItem('role'))
   const [page, setPage] = useState(1);
   const [totalpage, setTotalpage] = useState([]);
+  const {
+    // id_intern_user_detail,
+    assignment_intern,
+  } = props;
   useEffect(() => {
     props.dispatch({ type: assignmentsConstants.LOAD_ASSIGNMENTS_REQUEST, page })
     props.dispatch({ type: answerConstants.LOAD_ANSWER_REQUEST })
-  }, [page])
+    if (role === 'intern' && props.id_intern !== undefined) {
+      props.dispatch({
+        type: internConstants.LOAD_ASSIGNMENT_OF_INTERN_REQUEST,
+        id_intern: props.id_intern,
+      })
+    }
+  }, [page, props.id_intern])
+
+  console.group('123', props.id_intern, assignment_intern)
 
   useMemo(() => {
     if (props.assignments.metadata !== undefined) {
@@ -31,7 +45,13 @@ const ShowAssignments = (props) => {
   return (
     <React.Fragment>
       <Wrapper>
-        {props.assignments.data && props.assignments.data.map((item, idx) =>
+        {(role === 'mentor' && props.assignments.data) && props.assignments.data.map((item, idx) =>
+          <AssignmentItem
+            key={idx}
+            item={item}
+          />
+        )}
+        {role === 'intern' && assignment_intern.data && assignment_intern.data.map((item, idx) =>
           <AssignmentItem
             key={idx}
             item={item}
@@ -50,6 +70,8 @@ const ShowAssignments = (props) => {
 const mapStateToProps = (state) => {
   return {
     assignments: state.assignment.assignments,
+    id_intern_user_detail: state.user.user_detail,
+    assignment_intern: state.intern.assignment_intern,
   }
 }
 
